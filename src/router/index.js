@@ -32,6 +32,20 @@ const routes = [
   {
     path: '/login',
     component: () => import('@/views/Login')
+  },
+  {
+    path: '/regist',
+    component: () => import('@/views/Regist')
+  },
+  {
+    path: '/province',
+    component: () => import('@/views/Province'),
+    children: [
+      {
+        path: '/province/city',
+        component: () => import('@/views/Province/city')
+      }
+    ]
   }
 ]
 

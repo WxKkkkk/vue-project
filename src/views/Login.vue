@@ -1,6 +1,6 @@
 <template>
     <div>
-        Login
+        login
         <backbtn></backbtn>
     </div>
 </template>
