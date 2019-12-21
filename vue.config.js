@@ -5,13 +5,10 @@ module.exports = {
       errors: false
     },
     proxy: {
-      '/ajax': {
-        target: 'http://m.maoyan.com',
+      '/lct': {
+        target: 'https://mobileway.lecuntao.com',
         // ws: true,
         changeOrigin: true
-      },
-      '/foo': {
-        target: '<other_url>'
       }
     }
   }
