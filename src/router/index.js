@@ -38,6 +38,10 @@ const routes = [
     component: () => import('@/views/Regist')
   },
   {
+    path: '/setup',
+    component: () => import('@/views/Setup')
+  },
+  {
     path: '/province',
     component: () => import('@/views/Province'),
     children: [
