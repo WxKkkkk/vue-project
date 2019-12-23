@@ -1,61 +1,85 @@
 <template>
     <div class="goods">
-        <dl>
-            <dt>
-                <img src="https://img.lecuntao.com/data/upload/shop/store/goods/706/2018/03/22/706_05750564835517748_360.jpg" alt="">
-            </dt>
-            <dd>
-                <p class="goodsname">【乐六集】【家电惠农补贴】 43英寸高清智能WIFI网络安卓平板LED液晶电视机 43寸 10000台 电话：4008123456</p>
-                <p class="goodsprice">1498.00</p>
-                <p class="goodsnum">已售3142件</p>
-            </dd>
-        </dl>
+        <ul v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="loading"
+      infinite-scroll-distance="10"
+      infinite-scroll-immediate-check="false">
+            <li v-for="data in datalist" :key="data.goods_id">
+                <img :src="data.goods_image" alt="">
+                <p class="goodsname">{{data.goods_name}}</p>
+                <p class="goodsprice">{{data.goods_price}}</p>
+                <p class="goodsnum">已售{{data.goods_salenum}}}件</p>
+            </li>
+        </ul>
+
     </div>
 </template>
 
 <script>
+
 import Axios from 'axios'
+
 export default {
     data () {
         return {
             datalist: [],
-            cityId: localStorage.getItem('city_id')
+            cityId: localStorage.getItem('cityId'),
+            number: 1,
+            loading: false,
+            total: 0
         }
     },
     mounted () {
-        Axios.post('https://mobileway.lecuntao.com/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577089826653&act=goods&op=goodsRecom_new', `provinc=140&city=140100000000&page=1&pageSize=10`)
+        Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577089826653&act=goods&op=goodsRecom_new', `provinc=${localStorage.getItem('proviceId')}&city=${this.cityId}&page=1&pageSize=10`).then(res => {
+            this.datalist = res.data.datas.list
+            // console.log(this.datalist)
+        })
+    },
+    methods: {
+        loadMore () {
+            this.number++
+            this.loading = true
+            // console.log(this.datalist.length, this.total, 1)
+            if (this.number === this.total) {
+                return
+            }
+            Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577089826653&act=goods&op=goodsRecom_new', `provinc=140&city=${this.cityId}&page=${this.number}&pageSize=10`).then(res => {
+                this.datalist = [...this.datalist, ...res.data.datas.list]
+                this.total = res.data.datas.page_count
+                this.loading = false
+                // console.log(this.datalist)
+            })
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .goods{
-    dl{
+
+    li{
         width: 50%;
         float: left;
-        dt{
-            img{
-                width: 100%;
-            }
+        margin-bottom: 5px;
+        background: white;
+        img{
+            width: 100%;
         }
-        dd{
-            .goodsname{
-                // width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            .goodsprice{
-                color: rgb(242,48,48);
-                font-size: 18px;
-                float: left;
-            }
-            .goodsnum{
-                float: right;
-                color:rgb(153,153,153);
-                margin-top: 3px;
-
-            }
+        .goodsname{
+            // width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .goodsprice{
+            color: rgb(242,48,48);
+            font-size: 18px;
+            float: left;
+        }
+        .goodsnum{
+            float: right;
+            color:rgb(153,153,153);
+            margin-top: 3px;
         }
     }
 }

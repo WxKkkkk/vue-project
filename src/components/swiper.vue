@@ -39,6 +39,7 @@ export default {
 .catelist{
   height: 80px;
   padding-top: 20px;
+  background: white;
   dl{
     dt{
       display: flex;
@@ -51,6 +52,58 @@ export default {
     dd{
     text-align: center;
   }
+  }
+}
+.lejilist{
+  height: 190px;
+  .swiper-slide{
+    width: 30%;
+    background: white;
+  }
+  dl{
+    margin-top: 20px;
+  }
+  dd{
+    margin-top: 10px;
+    .lejiname{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lejiprice{
+      margin-top: 10px;
+      color: red;
+    }
+  }
+  .all{
+    text-align: center;
+    line-height: 190px;
+  }
+}
+.featurelist{
+  height: 190px;
+  .swiper-slide{
+    width: 30%;
+    background: white;
+  }
+  dl{
+    margin-top: 20px;
+  }
+  dd{
+    margin-top: 10px;
+    .lejiname{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lejiprice{
+      margin-top: 10px;
+      color: red;
+    }
+  }
+  .all{
+    text-align: center;
+    line-height: 190px;
   }
 }
 </style>

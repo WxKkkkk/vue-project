@@ -7,7 +7,7 @@
       </p>
     </div>
     <div class="search">
-      <input type="text" placeholder="输入搜索内容" />
+      <input type="text" placeholder="输入搜索内容撒旦" />
     </div>
   </div>
 </template>
