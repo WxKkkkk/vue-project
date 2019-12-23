@@ -5,8 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
- isprovince: true,
- provinceid: Number
+    isprovince: true,
+    provinceid: Number,
+    provincename: String,
+    cityname: String
+
   },
   mutations: {
   },
