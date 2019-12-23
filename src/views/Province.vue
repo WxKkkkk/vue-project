@@ -5,7 +5,7 @@
       <h2>选择所在省份</h2>
     </header>
     <div class="location">
-      当前定位：`{$store.state.provincename}&nbsp;&nbsp;$store.state.cityname`
+      当前定位：
     </div>
     <div class="getcity">
       <div>
