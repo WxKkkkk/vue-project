@@ -17,8 +17,9 @@
       <span>请选择</span>省份/城市
     </div>
     <div class="content">
-      <div class="province" v-for="data in datalist" :key="data.province_id">{{data.province_name}}</div>
+      <div class="province" v-for="data in datalist" :key="data.province_id" @click="city()">{{data.province_name}}</div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -35,6 +36,11 @@ export default {
       this.datalist = res.data.datas
       // console.log(res.data.datas)
     })
+  },
+  methods: {
+    city () {
+      this.$router.push('/city')
+    }
   }
 }
 </script>
