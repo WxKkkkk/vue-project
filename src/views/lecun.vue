@@ -71,10 +71,6 @@
             <p>查看全部</p>
           </div>
         </swiper>
-<<<<<<< HEAD
-        <!-- </swiper> -->
-=======
->>>>>>> f5057c0d856712b1c94a45f0650f46856b40a6ca
       </div>
       <div class="category">
         <swiper :banner="{
@@ -91,6 +87,7 @@
         </swiper>
       </div>
       <goodslist></goodslist>
+      <gotop></gotop>
     </div>
 </template>
 
@@ -99,6 +96,7 @@ import Axios from 'axios'
 import citybtn from '@/components/citybtn'
 import swiper from '@/components/swiper'
 import goodslist from '@/components/goodslist'
+import gotop from '@/components/GoTop'
 export default {
   data () {
     return {
@@ -107,7 +105,8 @@ export default {
       lejilist: [],
       featurelist: [],
       category: [],
-      istop: false
+      istop: false,
+      isshow: false
     }
   },
   mounted () {
@@ -125,7 +124,8 @@ export default {
   components: {
     citybtn,
     swiper,
-    goodslist
+    goodslist,
+    gotop
   },
   methods: {
     scrolltop () {
