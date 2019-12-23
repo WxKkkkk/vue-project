@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
 	  isprovince: true,
-	  provinceid: Number
+	  provinceid: Number,
+    provincename: String,
+    cityname: String
   },
   mutations: {
   },

@@ -5,7 +5,7 @@
       <h2>选择所在城市</h2>
     </header>
     <div class="content">
-      <div class="city" v-for="data in dataList" :key="data.city_id" @click="pushCity(data.city_name)">{{data.city_name}}</div>
+      <div class="city" v-for="data in dataList" :key="data.city_id" @click="pushCity(data.city_id,data.city_name)">{{data.city_name}}</div>
     </div>
   </div>
 </template>
@@ -32,7 +32,9 @@ export default {
     back () {
       history.back()
     },
-    pushCity (name) {
+    pushCity (id, name) {
+      this.$store.state.cityname = name
+      localStorage.setItem('cityId', id)
       localStorage.setItem('city', name)
       this.$router.push('/lecun')
     }

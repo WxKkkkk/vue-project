@@ -5,7 +5,7 @@
       <h2>选择所在省份</h2>
     </header>
     <div class="location">
-      当前定位：
+      当前定位：`{$store.state.provincename}&nbsp;&nbsp;$store.state.cityname`
     </div>
     <div class="getcity">
       <div>
@@ -17,9 +17,9 @@
       <span>请选择</span>省份/城市
     </div>
     <div class="content">
-      <div class="province" v-for="data in datalist" :key="data.province_id" @click="city(data.province_id)">{{data.province_name}}</div>
+      <div class="province" v-for="data in datalist" :key="data.province_id" @click="city(data.province_id,data.province_name)">{{data.province_name}}</div>
     </div>
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
   </div>
 </template>
 
@@ -39,9 +39,10 @@ export default {
     })
   },
   methods: {
-    city (id) {
+    city (id, name) {
       this.$router.push('/city')
       this.$store.state.provinceid = id
+      this.$store.state.provincename = name
       // console.log(this.$store.state.provinceid)
     },
     back () {
