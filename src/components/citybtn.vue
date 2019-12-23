@@ -6,7 +6,9 @@
         <span>&gt;</span>
       </p>
     </div>
+
     <div class="search"><input type="text" placeholder="输入搜索内容" /></div>
+
   </div>
 </template>
 

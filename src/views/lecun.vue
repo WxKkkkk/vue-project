@@ -32,17 +32,20 @@
               loop: false,
               pagination: {},
               slidesPerView: 4,
-              spaceBetween: 30,
+              spaceBetween: 0,
               freeMode: true
               }" class="lejilist" swipername="lejilist" :key="lejilist.length">
           <div class="swiper-slide" v-for="data in lejilist" :key="data.goods_id">
             <dl>
               <dt><img :src="data.goods_image" alt=""></dt>
               <dd>
-                <p>{{data.goods_name}}</p>
-                <p>{{data.goods_price}}</p>
+                <p class="lejiname">{{data.goods_name}}</p>
+                <p class="lejiprice">{{data.goods_price}}</p>
               </dd>
             </dl>
+          </div>
+          <div class="swiper-slide all">
+            <p>查看全部</p>
           </div>
         </swiper>
       </div>
@@ -52,18 +55,22 @@
               loop: false,
               pagination: {},
               slidesPerView: 4,
-              spaceBetween: 30,
+              spaceBetween: 0,
               freeMode: true
               }" class="featurelist" swipername="featurelist" :key="featurelist.length">
           <div class="swiper-slide" v-for="data in featurelist" :key="data.goods_id">
             <dl>
               <dt><img :src="data.goods_image" alt=""></dt>
               <dd>
-                <p>{{data.goods_name}}</p>
-                <p>{{data.goods_price}}</p>
+                <p class="lejiname">{{data.goods_name}}</p>
+                <p class="lejiprice">{{data.goods_price}}</p>
               </dd>
             </dl>
           </div>
+          <div class="swiper-slide all">
+            <p>查看全部</p>
+          </div>
+        </swiper>
         </swiper>
       </div>
       <div class="category">
@@ -101,7 +108,7 @@ export default {
     }
   },
   mounted () {
-    Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1576846125808&act=index&op=index&key=').then(res => {
+    Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1576846125808&act=index&op=index&key=', `province_id=${localStorage.getItem('proviceId')}&city_id=${localStorage.getItem('cityId')}&qiang_zhi_geng_xin=`).then(res => {
       // console.log(res.data.datas.adv)
       this.bannarlist = res.data.datas.adv
       this.catelist = res.data.datas.platform.list
@@ -134,9 +141,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box{
-  height:4000px;
-}
 .leji{
   width: 100%;
   img{
