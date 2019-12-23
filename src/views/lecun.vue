@@ -80,6 +80,7 @@
           </div>
         </swiper>
       </div>
+      <goodslist></goodslist>
     </div>
 </template>
 
@@ -87,6 +88,7 @@
 import Axios from 'axios'
 import citybtn from '@/components/citybtn'
 import swiper from '@/components/swiper'
+import goodslist from '@/components/goodslist'
 export default {
   data () {
     return {
@@ -112,7 +114,8 @@ export default {
   },
   components: {
     citybtn,
-    swiper
+    swiper,
+    goodslist
   },
   methods: {
     scrolltop () {
@@ -124,7 +127,7 @@ export default {
       }
     }
   },
-  destroy () {
+  beforeDestroy () {
     window.onscroll = null
   }
 }
