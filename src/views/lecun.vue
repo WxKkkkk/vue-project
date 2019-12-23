@@ -71,7 +71,7 @@
             <p>查看全部</p>
           </div>
         </swiper>
-        </swiper>
+        <!-- </swiper> -->
       </div>
       <div class="category">
         <swiper :banner="{

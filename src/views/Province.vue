@@ -19,7 +19,6 @@
     <div class="content">
       <div class="province" v-for="data in datalist" :key="data.province_id" @click="city(data.province_id,data.province_name)">{{data.province_name}}</div>
     </div>
-    <!-- <router-view></router-view> -->
   </div>
 </template>
 
