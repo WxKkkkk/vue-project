@@ -71,7 +71,10 @@
             <p>查看全部</p>
           </div>
         </swiper>
+<<<<<<< HEAD
         <!-- </swiper> -->
+=======
+>>>>>>> f5057c0d856712b1c94a45f0650f46856b40a6ca
       </div>
       <div class="category">
         <swiper :banner="{
@@ -141,6 +144,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.box{
+  background: #f0f0f0;
+}
 .leji{
   width: 100%;
   img{

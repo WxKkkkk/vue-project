@@ -2,28 +2,28 @@
   <div class="indexhead">
     <div class="citybtn" @click="cityview">
       <p>
-        {{cityname}}
+        {{ cityname }}
         <span>&gt;</span>
       </p>
     </div>
-    <div class="search">
-      <input type="text" placeholder="输入搜索内容撒旦" />
-    </div>
+
+    <div class="search"><input type="text" placeholder="输入搜索内容" /></div>
+
   </div>
 </template>
 
 <script>
 export default {
-    data () {
-        return {
-            cityname: localStorage.getItem('city')
-        }
-    },
-    methods: {
-        cityview () {
-            this.$router.push('/province')
-        }
+  data () {
+    return {
+      cityname: localStorage.getItem('city')
     }
+  },
+  methods: {
+    cityview () {
+      this.$router.push('/province')
+    }
+  }
 }
 </script>
 
@@ -35,7 +35,7 @@ export default {
   top: 0;
   display: flex;
   justify-content: space-around;
-//   background: red;
+  //   background: red;
   z-index: 100;
   .citybtn {
     box-sizing: border-box;
@@ -66,7 +66,7 @@ export default {
     }
   }
 }
-.top{
+.top {
   background: red;
 }
 </style>
