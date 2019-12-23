@@ -16,7 +16,9 @@
     height: 2.5rem;
     background: linear-gradient(skyblue,orange);
     border-radius: 50%;
-    position: relative;
+    position: fixed;
+    right: 0.625rem;
+    bottom: 3.125rem;
     img{
       width: 60%;
       height: 60%;
