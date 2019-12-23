@@ -34,6 +34,7 @@ export default {
     },
     pushCity (name) {
       localStorage.setItem('city', name)
+      this.$router.push('/lecun')
     }
   }
 }
