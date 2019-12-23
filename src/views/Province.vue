@@ -5,11 +5,7 @@
       <h2>选择所在省份</h2>
     </header>
     <div class="location">
-<<<<<<< HEAD
       当前定位：{{province}}&nbsp;&nbsp;{{citys}}
-=======
-      当前定位：
->>>>>>> 5aa35fb3da0e8b5c31d40d67d1fa17d0f2911b6d
     </div>
     <div class="getcity">
       <div>
@@ -32,13 +28,9 @@ import Axios from 'axios'
 export default {
   data () {
     return {
-<<<<<<< HEAD
       datalist: [],
       province: localStorage.getItem('provice'),
       citys: localStorage.getItem('city')
-=======
-      datalist: []
->>>>>>> 5aa35fb3da0e8b5c31d40d67d1fa17d0f2911b6d
     }
   },
   mounted () {
@@ -53,11 +45,8 @@ export default {
       this.$router.push('/city')
       this.$store.state.provinceid = id
       this.$store.state.provincename = name
-<<<<<<< HEAD
+      localStorage.setItem('proviceId', id)
       localStorage.setItem('provice', name)
-=======
->>>>>>> 5aa35fb3da0e8b5c31d40d67d1fa17d0f2911b6d
-      // console.log(this.$store.state.provinceid)
     },
     back () {
       this.$router.push('/lecun')
