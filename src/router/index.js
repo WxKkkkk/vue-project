@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '*',
-    component: () => import('@/views/lecun')
+    redirect: '/lecun'
   },
   {
     path: '/lecun',
