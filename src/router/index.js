@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Lecun from '@/views/lecun'
-
+import City from '@/views/Provinces/City'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '*',
-    component: () => import('@/views/lecun')
+    redirect: '/lecun'
   },
   {
     path: '/lecun',
@@ -32,6 +32,22 @@ const routes = [
   {
     path: '/login',
     component: () => import('@/views/Login')
+  },
+  {
+    path: '/regist',
+    component: () => import('@/views/Regist')
+  },
+  {
+    path: '/setup',
+    component: () => import('@/views/Setup')
+  },
+  {
+    path: '/province',
+    component: () => import('@/views/Province')
+  },
+  {
+    path: '/city',
+    component: City
   }
 ]
 

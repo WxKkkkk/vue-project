@@ -5,6 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isprovince: true,
+    provinceid: Number,
+    provincename: String,
+    cityname: String,
     CategoryList: [],
     CategorySmallList: []
   },
@@ -13,7 +17,7 @@ export default new Vuex.Store({
       state.CategoryList = []
       state.CategoryList = datas
     },
-    GetSmallListMutation (state, datas) {
+    GetCategorySmallListMutation (state, datas) {
       state.CategorySmallList = []
       state.CategorySmallList = datas
     }
@@ -47,7 +51,7 @@ export default new Vuex.Store({
               'Content-Type': 'application/x-www-form-urlencoded'
             }
           }).then(res => {
-            store.commit('GetSmallListMutation', res.data.datas)
+            store.commit('GetCategorySmallListMutation', res.data.datas)
           })
         }
       })
@@ -73,7 +77,7 @@ export default new Vuex.Store({
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       }).then(res => {
-        store.commit('GetSmallListMutation', res.data.datas)
+        store.commit('GetCategorySmallListMutation', res.data.datas)
       })
     }
   },

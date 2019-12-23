@@ -71,7 +71,7 @@ export default {
 }
 .CategorySearch input{
   height: 1.5rem;
-  width: 60%;
+  width: 70%;
   background-color: rgb(239,239,239);
   border-radius: 1rem;
   padding-left: 5%;
@@ -82,14 +82,14 @@ export default {
 }
 .CategorySearch span{
   float: right;
-  margin-right: 10%;
+  margin-right: 7%;
 }
 .Category ul {
   position: absolute;
   top: 3.1rem;
   left: 0;
   width: 5rem;
-  height: 100%;
+  overflow: hidden;
 }
 .Category li {
   height: 3rem;
@@ -102,6 +102,7 @@ export default {
   top: 3.1rem;
   width: 17rem;
   right: 0;
+  overflow: hidden;
 }
 #Smalllist div {
   height: 5%;

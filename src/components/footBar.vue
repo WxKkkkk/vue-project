@@ -5,7 +5,7 @@
       <router-link to="/Category" tag="li" activeClass="foot"><i class="iconfont">&#xe61c;
 </i><span>分类</span></router-link>
       <router-link to="/Cart" tag="li" activeClass="foot"><i class="iconfont">&#xe512;</i><span>购物车</span></router-link>
-      <router-link to="/Center" tag="li" activeClass="foot"><i class="iconfont">&#xe627;</i><span>我的</span></router-link>
+      <router-link to="/Center" tag="li" activeClass="foot"><i class="iconfont">&#xe628;</i><span>我的</span></router-link>
     </ul>
   </div>
 </template>

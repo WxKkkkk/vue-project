@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <footbar></footbar>
+    <footbar v-if="$store.state.isprovince"></footbar>
   </div>
 </template>
 <script>
@@ -12,6 +12,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 
 </style>
