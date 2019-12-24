@@ -26,7 +26,7 @@ const routes = [
     component: () => import('@/views/Center')
   },
   {
-    path: '/detail',
+    path: '/detail/:goodsid',
     component: () => import('@/views/Detail')
   },
   {
