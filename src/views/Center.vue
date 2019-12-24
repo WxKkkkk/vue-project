@@ -4,6 +4,8 @@
     <img class="img" src="https://m.lecuntao.com/resource/images/per/bg_gerenzhongxinbeijing.png?lv=eedef2e054" alt="">
     <img class="headimg" src="https://s0.lecuntao.com/mobile_2.3.0/resource/images/member_avatar_2x.png" alt="">
 
+  <router-link to="/Setup">  <i class="iconfont topshang" >&#xe63d;</i></router-link>
+
    <mt-cell  title="我的集单" is-link class="titleleft">
   <i class="iconfont  leftzuo">&#xe63d;</i>
 
@@ -11,15 +13,15 @@
 </mt-cell>
 
 <ul style="border-bottom:none">
-      <router-link to="/lecun" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待付款</span></router-link>
-      <router-link to="/Category" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待发货</span></router-link>
-      <router-link to="/Cart" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待收货</span></router-link>
-      <router-link to="/Center" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>退款退货</span></router-link>
+      <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待付款</span></router-link>
+      <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待发货</span></router-link>
+      <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待收货</span></router-link>
+      <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>退款退货</span></router-link>
     </ul>
 
 <div class="gray"></div>
 
-<mt-cell title="收货地址" is-link class="titleleft">
+<mt-cell title="收货地址" is-link class="titleleft" >
   <i class="iconfont  leftzuo">&#xe63d;</i>
 
   <span>管理地址信息</span>
@@ -53,9 +55,9 @@
 </mt-cell>
 
 <ul style="border-bottom:none">
-      <router-link to="/lecun" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>客户端</span></router-link>
-      <router-link to="/Category" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>电脑版</span></router-link>
-      <router-link to="/Cart" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>乐村桃官网</span></router-link>
+      <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>客户端</span></router-link>
+      <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>电脑版</span></router-link>
+      <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>乐村桃官网</span></router-link>
       <!-- <router-link to="/Center" tag="li" activeClass="foot"><i class="iconfont">&#xe627;</i><span>退款退货</span></router-link> -->
     </ul>
 
@@ -63,6 +65,8 @@
 </template>
 
 <script>
+
+// <router-link to="/path"><button>跳转</button></router-link>
 
 // export default {
 //   beforeRouteEnter (to, from, next) {
@@ -88,15 +92,21 @@
 .titleleft{
   // width: 500px;
   padding-left: 25px;
+  position: relative;
 }
   .leftzuo{
-    position: fixed;
+    position: absolute;
     left: 15px;
   }
   .img{
     // height: 44px;
     width: 100%;
-    // position: absolute;
+    position: relative;
+  }
+  .topshang{
+    position: relative;
+    top: -200px;
+    left: 360px;
   }
   .headimg{
     height: 100px;

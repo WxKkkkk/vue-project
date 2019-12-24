@@ -42,6 +42,10 @@ const routes = [
     component: () => import('@/views/Setup')
   },
   {
+    path: '/retphone',
+    component: () => import('@/views/Retphone')
+  },
+  {
     path: '/province',
     component: () => import('@/views/Province')
   },
