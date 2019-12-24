@@ -5,13 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    CategoryDetailpages: 0,
     isprovince: true,
     provinceid: Number,
     provincename: String,
     cityname: String,
     CategoryList: [],
-    CategorySmallList: []
+    CategorySmallList: [],
+    CategoryDetailList: []
   },
+
   mutations: {
     GetCategoryListMutation (state, datas) {
       state.CategoryList = []
@@ -20,8 +23,21 @@ export default new Vuex.Store({
     GetCategorySmallListMutation (state, datas) {
       state.CategorySmallList = []
       state.CategorySmallList = datas
+    },
+    GetCategoryDetailMutation (state, parameters) {
+      if (parameters[2] === 1) {
+        state.CategoryDetailList = state.CategoryDetailList.concat(parameters[0])
+      } else {
+        state.CategoryDetailList = []
+        state.CategoryDetailList = parameters[0]
+      }
+
+      if (state.CategoryDetailpages !== parameters[1]) {
+        state.CategoryDetailpages = parameters[1]
+      }
     }
   },
+
   actions: {
     getCategoryList (store) {
       Axios({
@@ -78,6 +94,37 @@ export default new Vuex.Store({
         }
       }).then(res => {
         store.commit('GetCategorySmallListMutation', res.data.datas)
+      })
+    },
+    getCategoryDetailList (store, parameters) {
+      Axios({
+        method: 'post',
+        url: `lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577150269136&act=goods&op=goodsList`,
+        data: {
+          provinc: parameters[0],
+          city: parameters[1],
+          keyword: '',
+          page: parameters[2],
+          sorted: parameters[3],
+          sequence: parameters[4],
+          gcId: parameters[5],
+          workshop: ''
+        },
+        transformRequest: [
+          function (data) {
+            let ret = ''
+            for (let it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            ret = ret.substring(0, ret.lastIndexOf('&'))
+            return ret
+          }
+        ],
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(res => {
+        store.commit('GetCategoryDetailMutation', [res.data.datas.list, res.data.datas.page_count, parameters[6]])
       })
     }
   },

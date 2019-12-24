@@ -48,6 +48,11 @@ const routes = [
   {
     path: '/city',
     component: City
+  },
+  {
+    path: '/categorydetails',
+    name: 'CategoryDetails',
+    component: () => import('@/views/CategoryDetails')
   }
 ]
 

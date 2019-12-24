@@ -1,25 +1,25 @@
 <template>
   <div class="Category">
     <div class="CategorySearch">
-      <input type="text" placeholder="输入商品名称" @click="gotosearch()">
+      <input type="text" placeholder="输入商品名称" @click="gotosearch()" />
       <span onclick="self.location=document.referrer;">取消</span>
     </div>
     <ul>
       <li
-        :class="ind===index?'onclickList':''"
-        v-for="(name,index) in $store.state.CategoryList"
+        :class="ind === index ? 'onclickList' : ''"
+        v-for="(name, index) in $store.state.CategoryList"
         :key="name.gc_id"
         :id="name.gc_id"
         @click="
           getCategorySmallList(name.gc_id);
-          onclick($event,index);
+          onclick($event, index);
         "
       >
         {{ name.gc_name }}
       </li>
     </ul>
     <div id="Smalllist">
-      <div v-for="n in $store.state.CategorySmallList" :key="n.gc_id" :id="n.gc_id">
+      <div v-for="n in $store.state.CategorySmallList" :key="n.gc_id" :id="n.gc_id" @click="toCategoryDetails($event,n)" :ref='n.gc_id' :name="n.gc_name">
         <img :src="n.cate_img" />
         <span>{{ n.gc_name }}</span>
       </div>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
@@ -41,17 +40,17 @@ export default {
     },
     onclick (e, index) {
       this.ind = index
+    },
+    toCategoryDetails (e, n) {
+      localStorage.setItem('gcId', n.gc_id)
+      this.$router.push({ name: 'CategoryDetails', params: { gcName: n.gc_name } })
     }
   },
   created () {
     this.$store.dispatch('getCategoryList')
   },
-  mounted () {
-    ;
-  },
-  gotosearch () {
-    ;
-  }
+  mounted () {},
+  gotosearch () {}
 }
 </script>
 
@@ -60,19 +59,19 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  background-color: white;
 }
-.CategorySearch{
-  position: absolute;
+.CategorySearch {
   top: 0;
   width: 100%;
   height: 3rem;
   line-height: 3rem;
-  border-bottom: 0.1rem rgb(223,223,223) solid;
+  border-bottom: 0.1rem rgb(223, 223, 223) solid;
 }
-.CategorySearch input{
+.CategorySearch input {
   height: 1.5rem;
   width: 70%;
-  background-color: rgb(239,239,239);
+  background-color: rgb(239, 239, 239);
   border-radius: 1rem;
   padding-left: 5%;
   margin-left: 5%;
@@ -80,14 +79,13 @@ export default {
   border: none;
   float: left;
 }
-.CategorySearch span{
+.CategorySearch span {
   float: right;
   margin-right: 7%;
 }
 .Category ul {
-  position: absolute;
-  top: 3.1rem;
-  left: 0;
+  float: left;
+  height: 100%;
   width: 5rem;
   overflow: hidden;
 }
@@ -97,23 +95,21 @@ export default {
   text-align: center;
   background-color: rgb(236, 236, 236);
 }
-#Smalllist {
-  position: absolute;
-  top: 3.1rem;
-  width: 17rem;
-  right: 0;
+.Category #Smalllist {
+  width: 18rem;
+  float: right;
   overflow: hidden;
 }
-#Smalllist div {
+.Category #Smalllist div {
   height: 5%;
   width: 33%;
   text-align: center;
   float: left;
 }
-#Smalllist img {
+.Category #Smalllist img {
   width: 100%;
 }
-#Smalllist span {
+.Category #Smalllist span {
   display: inline-block;
   height: 1rem;
   line-height: 1rem;
