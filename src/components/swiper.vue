@@ -12,18 +12,19 @@ import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css'
 
 export default {
+  props: ['banner', 'swipername'],
   mounted () {
     // console.log(this.swipername)
     var defaultProps = {
-      loop: true, // 循环模式选项
+      // loop: true, // 循环模式选项
       // 如果需要分页器
       pagination: {
         el: '.swiper-pagination'
       }
     }
     new Swiper(`.${this.swipername ? this.swipername : 'wxk'}`, { ...defaultProps, ...this.banner })
-  },
-  props: ['banner', 'swipername']
+    // console.log(this.swipername)
+  }
 }
 </script>
 

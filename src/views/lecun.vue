@@ -9,7 +9,7 @@
         }
       }" ref="banner" class="bannerlist" swipername="bannerlist">
         <div class="swiper-slide" v-for="data in bannarlist" :key="data.adv_id">
-          <img :src="data.adv_image" alt="">
+          <img :src="data.adv_image" alt="" v-lazy="data.adv_image">
         </div>
       </swiper>
       <swiper :banner="{
@@ -21,7 +21,7 @@
       }" class="catelist" swipername="catelist" :key="catelist.length">
         <div class="swiper-slide" v-for="data in catelist" :key="data.cate_type">
           <dl>
-            <dt><img :src="data.cate_image" alt=""></dt>
+            <dt><img :src="data.cate_image" alt="" v-lazy="data.cate_image"></dt>
             <dd>{{data.cate_name}}</dd>
           </dl>
         </div>
@@ -35,12 +35,12 @@
               spaceBetween: 0,
               freeMode: true
               }" class="lejilist" swipername="lejilist" :key="lejilist.length">
-          <div class="swiper-slide" v-for="data in lejilist" :key="data.goods_id">
+          <div class="swiper-slide" v-for="data in lejilist" :key="data.goods_id"  @click="godetail(data.goods_id)">
             <dl>
-              <dt><img :src="data.goods_image" alt=""></dt>
+              <dt><img :src="data.goods_image" alt="" v-lazy="data.goods_image"></dt>
               <dd>
                 <p class="lejiname">{{data.goods_name}}</p>
-                <p class="lejiprice">{{data.goods_price}}</p>
+                <p class="lejiprice">{{data.goods_price}}元</p>
               </dd>
             </dl>
           </div>
@@ -58,12 +58,12 @@
               spaceBetween: 0,
               freeMode: true
               }" class="featurelist" swipername="featurelist" :key="featurelist.length">
-          <div class="swiper-slide" v-for="data in featurelist" :key="data.goods_id">
-            <dl>
-              <dt><img :src="data.goods_image" alt=""></dt>
+          <div class="swiper-slide" v-for="data in featurelist" :key="data.goods_id" @click="godetail(data.goods_id)">
+            <dl >
+              <dt><img :src="data.goods_image" alt="" v-lazy="data.goods_image"></dt>
               <dd>
                 <p class="lejiname">{{data.goods_name}}</p>
-                <p class="lejiprice">{{data.goods_price}}</p>
+                <p class="lejiprice">{{data.goods_price}}元</p>
               </dd>
             </dl>
           </div>
@@ -82,9 +82,19 @@
         }" class="category" swipername="category" :key="category.length">
           <div class="swiper-slide" v-for="data in category" :key="data.gc_id">
             {{data.cate_name}}
-
           </div>
         </swiper>
+      </div>
+      <div class="categoods" v-for="data in categoods" :key="data.cate_info.gc_id">
+        <p class="catename">{{data.cate_info.cate_name}}</p>
+        <ul class="categood">
+          <li v-for="item in data.goods_list" :key="item.goods_id" @click="godetail(item.goods_id,item.goods_commonid)">
+            <img :src="item.goods_image" alt="" v-lazy="item.goods_image"/>
+            <p class="goodsname">{{ item.goods_name }}</p>
+            <p class="goodsprice">{{ item.goods_price }}元</p>
+            <p class="goodsnum">已售{{ item.goods_salenum }}}件</p>
+          </li>
+        </ul>
       </div>
       <goodslist></goodslist>
       <gotop></gotop>
@@ -105,6 +115,7 @@ export default {
       lejilist: [],
       featurelist: [],
       category: [],
+      categoods: [],
       istop: false,
       isshow: false
     }
@@ -117,7 +128,8 @@ export default {
       this.lejilist = res.data.datas.le6ji.recommend_goods
       this.featurelist = res.data.datas.feature.recommend_goods
       this.category = res.data.datas.category
-      console.log(this.lejilist, 111)
+      this.categoods = res.data.datas.category_goods
+      console.log(this.categoods, 111)
     })
     window.onscroll = this.scrolltop
   },
@@ -135,10 +147,24 @@ export default {
       } else {
         this.istop = false
       }
+    },
+    godetail (id, commonid) {
+      this.$router.push(`/detail/${id}`)
+      localStorage.setItem('commonid', commonid)
     }
   },
   beforeDestroy () {
     window.onscroll = null
+  },
+    beforeRouteEnter (to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+    if (localStorage.getItem('proviceId')) {
+      next()
+    } else {
+      next('/province')
+    }
   }
 }
 </script>
@@ -152,11 +178,60 @@ export default {
   img{
     width: 100%;
   }
+  .lejiname{
+    font-size: 12px;
+  }
+  .lejiprice{
+    text-align: center;
+  }
 }
 .feature{
   width: 100%;
   img{
     width: 100%;
   }
+    .lejiname{
+    font-size: 12px;
+  }
+  .lejiprice{
+    text-align: center;
+  }
+}
+.categood {
+  li {
+    width: 50%;
+    float: left;
+    margin-bottom: 5px;
+    background: white;
+    img {
+      width: 100%;
+    }
+    .goodsname {
+      // width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .goodsprice {
+      color: rgb(242, 48, 48);
+      font-size: 18px;
+      float: left;
+    }
+    .goodsnum {
+      float: right;
+      color: rgb(153, 153, 153);
+      margin-top: 3px;
+    }
+  }
+}
+.catename{
+  margin: 10px 0;
+  padding-left: 5px;
+  font-size: 12px;
+}
+image[lazy=loading] {
+  width: 40px;
+  height: 300px;
+  margin: auto;
 }
 </style>

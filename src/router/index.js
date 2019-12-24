@@ -26,7 +26,7 @@ const routes = [
     component: () => import('@/views/Center')
   },
   {
-    path: '/detail',
+    path: '/detail/:goodsid',
     component: () => import('@/views/Detail')
   },
   {
@@ -40,6 +40,10 @@ const routes = [
   {
     path: '/setup',
     component: () => import('@/views/Setup')
+  },
+  {
+    path: '/retphone',
+    component: () => import('@/views/Retphone')
   },
   {
     path: '/province',
