@@ -6,11 +6,19 @@
             <router-link to="/regist" tag="li" activeClass="active" class="red">免费注册</router-link>
         </ul>
 
-      <mt-field  placeholder="注册手机号" type="tel" ><i class="iconfont">&#xe627;</i></mt-field>
-      <mt-field  placeholder="填写短信验证码" type="number"><i class="iconfont">&#xe627;</i></mt-field>
-      <mt-field  placeholder="设置登录密码(8-20字母数字组合)" type="password"><i class="iconfont">&#xe627;</i></mt-field>
-      <mt-field  placeholder="确认密码" type="password"><i class="iconfont">&#xe627;</i></mt-field>
-      <p>收不到短信，试试语音验证码</p>
+      <mt-field  placeholder="注册手机号" type="tel" >
+
+        </mt-field>
+      <mt-field  placeholder="填写邮箱" type="text" >
+
+        </mt-field>
+      <mt-field  placeholder="设置登录密码(8-20字母数字组合)" type="password">
+
+        </mt-field>
+      <mt-field  placeholder="确认密码" type="password" >
+
+        </mt-field>
+      <p>短信验证功能正在维护</p>
       <mt-button type="danger" size="large" class="btn">注册</mt-button>
        <backbtn></backbtn>
 
