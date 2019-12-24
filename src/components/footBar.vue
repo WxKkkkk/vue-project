@@ -20,6 +20,7 @@ ul{
     display: flex;
     justify-content: space-around;
     font-size: 0.75rem;
+    z-index: 101;
     li{
       width: 25%;
       text-align: center;
