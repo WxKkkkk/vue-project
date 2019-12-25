@@ -2,7 +2,6 @@
     <div class="box" v-if="bannarlist.length">
       <citybtn :istop="istop" :class="istop? 'top' : ''"></citybtn>
       <swiper :key="bannarlist.length" :banner="{
-        loop: false,
         autoplay: {
           delay: 2500,
           disableOnInteraction: false
@@ -72,32 +71,33 @@
           </div>
         </swiper>
       </div>
-      <div class="category">
+      <div class="category" ref="cate">
         <swiper :banner="{
         loop: false,
         pagination: {},
         slidesPerView: 5,
         spaceBetween: 20,
         freeMode: true
-        }" class="category" swipername="category" :key="category.length">
+        }" class="categoryy" swipername="categoryy" :key="category.length" >
           <div class="swiper-slide" v-for="data in category" :key="data.gc_id">
-            {{data.cate_name}}
+            <a :href="'#'+ data.gc_id">{{data.cate_name}}</a>
           </div>
         </swiper>
       </div>
       <div class="categoods" v-for="data in categoods" :key="data.cate_info.gc_id">
-        <p class="catename">{{data.cate_info.cate_name}}</p>
+        <p class="catename" :id="data.cate_info.gc_id">{{data.cate_info.cate_name}}</p>
         <ul class="categood">
           <li v-for="item in data.goods_list" :key="item.goods_id" @click="godetail(item.goods_id,item.goods_commonid)">
             <img :src="item.goods_image" alt="" v-lazy="item.goods_image"/>
             <p class="goodsname">{{ item.goods_name }}</p>
             <p class="goodsprice">{{ item.goods_price }}元</p>
-            <p class="goodsnum">已售{{ item.goods_salenum }}}件</p>
+            <p class="goodsnum">已售{{ item.goods_salenum }}件</p>
           </li>
         </ul>
       </div>
       <goodslist></goodslist>
       <gotop></gotop>
+      <router-view></router-view>
     </div>
 </template>
 
@@ -129,7 +129,7 @@ export default {
       this.featurelist = res.data.datas.feature.recommend_goods
       this.category = res.data.datas.category
       this.categoods = res.data.datas.category_goods
-      console.log(this.categoods, 111)
+      // console.log(this.categoods, 111)
     })
     window.onscroll = this.scrolltop
   },
@@ -147,6 +147,11 @@ export default {
       } else {
         this.istop = false
       }
+      // if (document.documentElement.scrollTop >= this.$refs.cate.$el.offsetTop) {
+      //   this.iscate = true
+      // } else {
+      //   this.iscate = false
+      // }
     },
     godetail (id, commonid) {
       this.$router.push(`/detail/${id}`)
@@ -172,6 +177,7 @@ export default {
 <style lang="scss" scoped>
 .box{
   background: #f0f0f0;
+  overflow-y: hidden;
 }
 .leji{
   width: 100%;
@@ -233,5 +239,28 @@ image[lazy=loading] {
   width: 40px;
   height: 300px;
   margin: auto;
+}
+.category{
+  // overflow: hidden;
+  clear: both;
+  position: relative;
+}
+.cate{
+  position: fixed;
+  top: 40px;
+}
+.categoryy{
+  height: 40px;
+  width: 100%;
+  background: white;
+  margin-top: 10px;
+  padding-left: 5px;
+  line-height: 40px;
+  display: flex;
+  justify-content: space-around;
+  a{
+  color: rgb(51,51,51);
+
+  }
 }
 </style>

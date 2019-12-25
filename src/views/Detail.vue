@@ -17,7 +17,7 @@
       </div>
       <div v-html="detailbody" class="detailbody"></div>
       <div class="detailfoot">
-        <p>加入购物车</p>
+        <p @click="addCart(detailinfo.goods_id,detailinfo.goods_name,detailinfo.goods_image,detailinfo.goods_price)">加入购物车</p>
         <p>立即购买</p>
       </div>
     </div>
@@ -26,6 +26,7 @@
 import backbtn from '@/components/backbtn'
 import Axios from 'axios'
 import swiper from '@/components/swiper'
+import { Toast } from 'mint-ui'
 export default {
   components: {
     backbtn,
@@ -39,6 +40,23 @@ export default {
       detailinfo: {},
       commonindex: '',
       detailbody: ''
+    }
+  },
+  methods: {
+    addCart (id, name, img, price) {
+      Toast({
+        message: '添加购物车',
+        iconClass: 'icon icon-success'
+      })
+      var cartArr = []
+      var cart = {
+        id,
+        name,
+        img,
+        price
+      }
+      cartArr.push(cart)
+      localStorage.setItem('cart', JSON.stringify(cartArr))
     }
   },
   mounted () {
@@ -55,7 +73,7 @@ export default {
   created () {
     Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577166508140&act=mobile_goods_detail&op=getDetailData', `common_id=${this.commonId}&goods_id=${this.goodsId}&key=`).then(res => {
       // console.log(res.data.datas.goodsDetail)
-      this.detailbody = res.data.datas.goodsDetail.goods_body
+      this.detailbody = res.data.datas.goodsDetail.goods_body.replace(/img.enongtao.com/g, 'img.lecuntao.com')
     })
   },
   beforeDestroy () {

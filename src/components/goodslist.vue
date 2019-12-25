@@ -1,12 +1,21 @@
 <template>
   <div class="goods">
     <p class="re">热销列表</p>
-    <ul v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10" infinite-scroll-immediate-check="false">
-      <li v-for="data in datalist" :key="data.goods_id" @click="godetail(data.goods_id,data.goods_commonid)">
-        <img :src="data.goods_image" alt="" />
+    <ul
+      v-infinite-scroll="loadMore"
+      infinite-scroll-disabled="loading"
+      infinite-scroll-distance="0"
+      infinite-scroll-immediate-check="true"
+    >
+      <li
+        v-for="data in datalist"
+        :key="data.goods_id"
+        @click="godetail(data.goods_id,data.goods_commonid)"
+      >
+        <img :src="data.goods_image" alt />
         <p class="goodsname">{{ data.goods_name }}</p>
         <p class="goodsprice">{{ data.goods_price }}元</p>
-        <p class="goodsnum">已售{{ data.goods_salenum }}}件</p>
+        <p class="goodsnum">已售{{ data.goods_salenum }}件</p>
       </li>
     </ul>
   </div>
@@ -28,7 +37,9 @@ export default {
   mounted () {
     Axios.post(
       '/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577089826653&act=goods&op=goodsRecom_new',
-      `provinc=${localStorage.getItem('proviceId')}&city=${this.cityId}&page=1&pageSize=10`
+      `provinc=${localStorage.getItem('proviceId')}&city=${
+        this.cityId
+      }&page=1&pageSize=10`
     ).then(res => {
       this.datalist = res.data.datas.list
       // console.log(this.datalist)
@@ -36,6 +47,7 @@ export default {
   },
   methods: {
     loadMore () {
+      console.log(222222222222)
       this.number++
       this.loading = true
       // console.log(this.datalist.length, this.total, 1)
@@ -44,7 +56,9 @@ export default {
       }
       Axios.post(
         '/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577089826653&act=goods&op=goodsRecom_new',
-        `provinc=${localStorage.getItem('proviceId')}&city=${this.cityId}&page=${this.number}&pageSize=10`
+        `provinc=${localStorage.getItem('proviceId')}&city=${
+          this.cityId
+        }&page=${this.number}&pageSize=10`
       ).then(res => {
         this.datalist = [...this.datalist, ...res.data.datas.list]
         this.total = res.data.datas.page_count
@@ -62,7 +76,7 @@ export default {
 
 <style lang="scss" scoped>
 .goods {
-  .re{
+  .re {
     margin: 10px 0;
     padding-left: 5px;
     font-size: 12px;
@@ -70,7 +84,7 @@ export default {
   li {
     width: 50%;
     float: left;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     background: white;
     img {
       width: 100%;
