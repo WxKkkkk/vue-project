@@ -12,7 +12,8 @@ export default new Vuex.Store({
     cityname: String,
     CategoryList: [],
     CategorySmallList: [],
-    CategoryDetailList: []
+    CategoryDetailList: [],
+    HotSearchList: []
   },
 
   mutations: {
@@ -35,6 +36,10 @@ export default new Vuex.Store({
       if (state.CategoryDetailpages !== parameters[1]) {
         state.CategoryDetailpages = parameters[1]
       }
+    },
+    GetHotSearchListMutation (state, datas) {
+      state.HotSearchList = []
+      state.HotSearchList = datas
     }
   },
 
@@ -125,6 +130,14 @@ export default new Vuex.Store({
         }
       }).then(res => {
         store.commit('GetCategoryDetailMutation', [res.data.datas.list, res.data.datas.page_count, parameters[6]])
+      })
+    },
+    getHotSearchList (store) {
+      Axios({
+        url: `lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577061675581&act=mobile_cate&op=index`,
+        method: 'post'
+      }).then(res => {
+         store.commit('GetHotSearchListMutation', res.data.datas.list)
       })
     }
   },

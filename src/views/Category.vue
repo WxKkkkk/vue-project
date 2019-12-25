@@ -50,7 +50,9 @@ export default {
     this.$store.dispatch('getCategoryList')
   },
   mounted () {},
-  gotosearch () {}
+  gotosearch () {
+    this.$router.push({ name: 'SearchPrepare' })
+  }
 }
 </script>
 
