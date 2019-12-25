@@ -5,7 +5,7 @@
             <router-link to="/login" tag="li" activeClass="active" class="red">乐村淘账户登录</router-link>
             <router-link to="/regist" tag="li" activeClass="active">免费注册</router-link>
         </ul>
-       <br>
+
             <mt-field  placeholder="输入手机号用户名" maxlength="11" class="titleleft" v-model="test1" οnkeyup="value=value.replace(/[^0-9.]/g,'') " ref="input1" @blur="changeName(test1)"></mt-field>
             <mt-field  placeholder="请输入密码" type="password" class="titleleft" v-model="test2" ref="input2" @blur="changeName1(test2)"></mt-field>
             <mt-field  placeholder="请输入验证码" type="password" class="titleleft" v-model="test3" ref="input3"></mt-field>
@@ -13,6 +13,7 @@
             <mt-button type="danger" size="large" class="btn" @click="loginBtn()">登录</mt-button>
             <router-link to="/Retphone">  <mt-button type="default" size="large" class="btn">找回密码</mt-button></router-link>
         <backbtn></backbtn>
+
     </div>
 </template>
 
@@ -112,20 +113,10 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-   .titleleft{
-  // width: 500px;
-  padding-left: 25px;
-  position: relative;
-}
 .yanzheng{
-  // text-align: center;
-  // float: left;
-  margin-left: 25px;
+  margin-left: 10px;
 }
-  .leftzuo{
-    position: absolute;
-    left: 15px;
-  }
+
   ul{
         display: flex;
         border: 1px solid red;

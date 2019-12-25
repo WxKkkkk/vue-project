@@ -1,10 +1,10 @@
 <template>
     <div>
         <h5>设置</h5>   <div class="gray"></div>
-       <router-link to="#"> <mt-cell title="关于乐村淘" is-link class="titleleft" @click="handleClick()">
+       <a href="https://mobile.lecuntao.com/?act=login&op=our&client=nowap&api_version=2.3.0">
+         <mt-cell title="关于乐村淘"  is-link class="titleleft" @click="See(item.qj_url)"></mt-cell>
+         </a>
 
- <!-- <i class="iconfont  leftzuo">&#xe63d;</i>  -->
-</mt-cell></router-link>
  <router-link to="/Login"><mt-button type="danger" size="large" class="btn">退出登录</mt-button></router-link>
         <backbtn></backbtn>
 
@@ -21,10 +21,7 @@ export default {
     }
   },
   methods: {
-    handleClick () {
-      console.log(111)
-      // window.location.href = 'http://www.baidu.com';
-    }
+
   }
 }
 
