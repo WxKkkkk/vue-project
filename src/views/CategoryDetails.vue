@@ -2,7 +2,7 @@
   <div class="CategoryDetail">
     <div class="top">
       <div class="title">
-        <img src="../assets/leftarrow.jpg" @click="returnlecun()" />
+        <img src="../../public/images/leftarrow.jpg" @click="returnlecun()" />
         <span>{{ $route.params.gcName ? $route.params.gcName : '干货' }}</span>
       </div>
       <div class="button">
@@ -23,7 +23,7 @@
         <img :src="name.goods_image" />
         <span class="goodsTitle">{{ name.goods_name }}</span>
         <div class="sale">
-          <img src="../assets/money.jpg" />
+          <img src="../../public/images/money.jpg" />
           <span class="price">{{ name.goods_price }}</span>
           <span class="salenum">{{ name.goods_salenum }}人付款</span>
         </div>
