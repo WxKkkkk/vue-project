@@ -16,10 +16,10 @@
 <script>
 
 import Vue from 'vue'
-import { Field, Button } from 'mint-ui'
-// import Axios from 'axios'
+import { Field, Button, Toast } from 'mint-ui'
 import backbtn from '@/components/backbtn'
 import Axios from 'axios'
+
 Vue.component(Button.name, Button)
 Vue.component(Field.name, Field)
 export default {
@@ -61,7 +61,19 @@ export default {
         username: this.test1,
         password: this.test2
       }).then(res => {
-        console.log(res.data)
+          console.log(res.data)
+        if (res.data.code === 1) {
+          localStorage.setItem('token', res.data.msg)
+          this.$router.push('/lecun')
+        } else if (res.data.code === 2) {
+          Toast({
+            message: '没有此用户名'
+          })
+        } else if (res.data.code === 0) {
+          Toast({
+            message: res.data.msg
+          })
+        }
       })
       // Axios.post('/cart/login')
       // if (this.test3 === '') {

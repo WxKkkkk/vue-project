@@ -48,7 +48,8 @@ export default {
         goodsid: id,
         goodsname: name,
         goodsimg: img,
-        goodsprice: price
+        goodsprice: price,
+        userid: localStorage.getItem('token')
       }).then(res => {
         console.log(res.data)
         if (res.data.code === 1) {

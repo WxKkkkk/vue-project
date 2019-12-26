@@ -14,7 +14,7 @@
       @blur="changeName(test1)"
     ></mt-field>
     <mt-field
-      placeholder="设置登录密码(8-20字母数字组合)"
+      placeholder="设置登录密码"
       type="password"
       v-model="test2"
       ref="input2"
@@ -28,7 +28,7 @@
 
 <script>
 import Vue from 'vue'
-import { Field, Button } from 'mint-ui'
+import { Field, Button, Toast } from 'mint-ui'
 import backbtn from '@/components/backbtn'
 import Axios from 'axios'
 Vue.component(Field.name, Field)
@@ -71,6 +71,16 @@ export default {
         password: this.test2
       }).then(res => {
         console.log(res.data)
+        if (res.data.code === 1) {
+          Toast({
+            message: res.data.msg
+          })
+          this.$router.push('/login')
+        } else if (res.data.code === 0) {
+          Toast({
+            message: res.data.msg
+          })
+        }
       })
     }
   }
