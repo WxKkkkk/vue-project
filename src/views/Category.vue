@@ -2,7 +2,7 @@
   <div class="Category">
     <div class="CategorySearch">
       <input type="text" placeholder="输入商品名称" @click="gotosearch()" />
-      <span onclick="self.location=document.referrer;">取消</span>
+      <span @click="returnlast()">取消</span>
     </div>
     <ul>
       <li
@@ -43,16 +43,20 @@ export default {
     },
     toCategoryDetails (e, n) {
       localStorage.setItem('gcId', n.gc_id)
+      localStorage.setItem('ifSearch', '0')
       this.$router.push({ name: 'CategoryDetails', params: { gcName: n.gc_name } })
+    },
+    gotosearch () {
+      this.$router.push({ name: 'SearchPrepare' })
+    },
+    returnlast () {
+      window.history.go(-1)
     }
   },
   created () {
     this.$store.dispatch('getCategoryList')
   },
-  mounted () {},
-  gotosearch () {
-    this.$router.push({ name: 'SearchPrepare' })
-  }
+  mounted () {}
 }
 </script>
 

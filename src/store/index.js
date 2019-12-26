@@ -13,7 +13,8 @@ export default new Vuex.Store({
     CategoryList: [],
     CategorySmallList: [],
     CategoryDetailList: [],
-    HotSearchList: []
+    HotSearchList: [],
+    HistorySearchList: []
   },
 
   mutations: {
@@ -40,6 +41,12 @@ export default new Vuex.Store({
     GetHotSearchListMutation (state, datas) {
       state.HotSearchList = []
       state.HotSearchList = datas
+    },
+    clearAll (state) {
+      state.HistorySearchList = []
+    },
+    addHistory (state, historylist) {
+      state.HistorySearchList.push(historylist)
     }
   },
 
@@ -134,10 +141,45 @@ export default new Vuex.Store({
     },
     getHotSearchList (store) {
       Axios({
-        url: `lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577061675581&act=mobile_cate&op=index`,
+        url: `lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577346317181&act=goods&op=hotWord`,
         method: 'post'
       }).then(res => {
          store.commit('GetHotSearchListMutation', res.data.datas.list)
+      })
+    },
+    getCategoryDetailListFromSearch (store, parameters) {
+      Axios({
+        method: 'post',
+        url: `lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577357244895&act=goods&op=goodsList`,
+        data: {
+          provinc: parameters[0],
+          city: parameters[1],
+          keyword: parameters[2],
+          page: parameters[3],
+          coupon_id: null,
+          sorted: parameters[4],
+          sequence: parameters[5],
+          start_price: null,
+          ent_price: null,
+          goods_from: parameters[6],
+          key: null,
+          store_id: null
+        },
+        transformRequest: [
+          function (data) {
+            let ret = ''
+            for (let it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            ret = ret.substring(0, ret.lastIndexOf('&'))
+            return ret
+          }
+        ],
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(res => {
+        store.commit('GetCategoryDetailMutation', [res.data.datas.list, res.data.datas.page_count, parameters[7]])
       })
     }
   },

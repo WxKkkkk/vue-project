@@ -60,7 +60,7 @@ const routes = [
   },
   {
     path: '/SearchPrepare',
-    name: '/SearchPrepare',
+    name: 'SearchPrepare',
     component: () => import('@/views/SearchPrepare')
   }
 ]

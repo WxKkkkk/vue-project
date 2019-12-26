@@ -3,7 +3,7 @@
     <div class="top">
       <div class="title">
         <img src="../../public/images/leftarrow.jpg" @click="returnlecun()" />
-        <span>{{ $route.params.gcName ? $route.params.gcName : '干货' }}</span>
+        <span>{{ this.title }}</span>
       </div>
       <div class="button">
         <span :class="ind === 0 ? 'select' : ''" @click="change_All()">全部</span>
@@ -15,10 +15,10 @@
             <div :class="selectarrow === 0 ? 'arrow downarrow downarrowselected' : 'arrow downarrow'"></div>
           </div>
         </div>
-        <span :class="ind === 3 ? 'select' : ''" @click="change_Popular()">人气</span>
+        <span v-if="renqi" :class="ind === 3 ? 'select' : ''" @click="change_Popular()">人气</span>
       </div>
     </div>
-    <ul v-infinite-scroll="categoryDetailLoadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+    <ul v-if="$store.state.CategoryDetailList.length!==0" v-infinite-scroll="categoryDetailLoadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
       <li class="CategoryDetailList" v-for="name in $store.state.CategoryDetailList" :key="name.goods_id" @click="toDetails($event, name)">
         <img :src="name.goods_image" />
         <span class="goodsTitle">{{ name.goods_name }}</span>
@@ -29,6 +29,9 @@
         </div>
       </li>
     </ul>
+    <div v-if="$store.state.CategoryDetailList.length===0">
+      没有找到你想要的相关商品
+    </div>
   </div>
 </template>
 
@@ -37,12 +40,24 @@ export default {
   created () {
     this.provinc = localStorage.getItem('proviceId') ? localStorage.getItem('proviceId') : 110
     this.city = localStorage.getItem('cityId') ? localStorage.getItem('cityId') : 110100000000
-    this.gcId = localStorage.getItem('gcId') ? localStorage.getItem('gcId') : 1096
-    this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+
+    if (localStorage.getItem('ifSearch') === '1') {
+      this.renqi = false
+      this.title = localStorage.getItem('keyword')
+      this.keyword = localStorage.getItem('keyword')
+      this.$store.dispatch('getCategoryDetailListFromSearch', [this.provinc, this.city, this.keyword, this.page, this.sorted, this.sequence, this.goodsfrom, this.request])
+    } else {
+      this.renqi = true
+      this.title = this.$route.params.gcName ? this.$route.params.gcName : '干货'
+      this.gcId = localStorage.getItem('gcId') ? localStorage.getItem('gcId') : 1096
+      this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+    }
+
     this.page = 0
   },
   data () {
     return {
+      title: '’',
       page: 1,
       sorted: 4,
       sequence: 0,
@@ -51,7 +66,10 @@ export default {
       gcId: null,
       ind: 0,
       selectarrow: 2,
-      request: 0
+      request: 0,
+      keyword: '',
+      goodsfrom: 0,
+      renqi: true
     }
   },
   methods: {
@@ -62,7 +80,11 @@ export default {
       this.selectarrow = 2
       this.page = 1
       this.request = 0
-      this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+      if (localStorage.getItem('ifSearch') === '1') {
+        this.$store.dispatch('getCategoryDetailListFromSearch', [this.provinc, this.city, this.keyword, this.page, this.sorted, this.sequence, this.goodsfrom, this.request])
+      } else {
+        this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+      }
       localStorage.setItem('gcId', this.gcId)
     },
     change_SalesFirst () {
@@ -72,7 +94,11 @@ export default {
       this.selectarrow = 2
       this.page = 1
       this.request = 0
-      this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+     if (localStorage.getItem('ifSearch') === '1') {
+       this.$store.dispatch('getCategoryDetailListFromSearch', [this.provinc, this.city, this.keyword, this.page, this.sorted, this.sequence, this.goodsfrom, this.request])
+     } else {
+       this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+     }
       localStorage.setItem('gcId', this.gcId)
     },
     change_Prime () {
@@ -87,7 +113,11 @@ export default {
         this.sequence = 0
         this.selectarrow = 0
       }
-      this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+     if (localStorage.getItem('ifSearch') === '1') {
+       this.$store.dispatch('getCategoryDetailListFromSearch', [this.provinc, this.city, this.keyword, this.page, this.sorted, this.sequence, this.goodsfrom, this.request])
+     } else {
+       this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+     }
       localStorage.setItem('gcId', this.gcId)
     },
     change_Popular () {
@@ -97,7 +127,11 @@ export default {
       this.selectarrow = 2
       this.page = 1
       this.request = 0
-      this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+      if (localStorage.getItem('ifSearch') === '1') {
+        this.$store.dispatch('getCategoryDetailListFromSearch', [this.provinc, this.city, this.keyword, this.page, this.sorted, this.sequence, this.goodsfrom, this.request])
+      } else {
+        this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+      }
       localStorage.setItem('gcId', this.gcId)
     },
 
@@ -106,7 +140,11 @@ export default {
         this.request = 1
         if (this.page > this.$store.state.CategoryDetailpages) {
         } else {
-          this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+          if (localStorage.getItem('ifSearch') === '1') {
+            this.$store.dispatch('getCategoryDetailListFromSearch', [this.provinc, this.city, this.keyword, this.page, this.sorted, this.sequence, this.goodsfrom, this.request])
+          } else {
+            this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
+          }
         }
         localStorage.setItem('gcId', this.gcId)
     },
@@ -130,6 +168,13 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+}
+.CategoryDetail>div:last-child{
+  width: 100%;
+  height: 5rem;
+  padding-top: 10rem;
+  font-size: 1rem;
+  text-align: center;
 }
 .CategoryDetail .top {
   position: fixed;
