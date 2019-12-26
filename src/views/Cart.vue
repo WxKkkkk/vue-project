@@ -38,7 +38,7 @@
           <span>合计：<em>￥0.00</em></span>
           <span>不含运费</span>
         </div>
-        <span>去结算(0)</span>
+        <span @click="ff">去结算(0)</span>
       </div>
     </div>
   </div>
@@ -60,6 +60,11 @@
     methods: {
       state () {
         this.istrue = !this.istrue
+      },
+      ff () {
+        Axios.get('/cart/insert').then(res => {
+          console.log(res)
+        })
       }
     }
   }
