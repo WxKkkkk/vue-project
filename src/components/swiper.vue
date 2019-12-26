@@ -37,6 +37,12 @@ export default {
     height: 100%;
   }
 }
+.bannerlist{
+  width: 100%;
+  img {
+    width: 100%;
+  }
+}
 .catelist{
   height: 80px;
   padding-top: 20px;

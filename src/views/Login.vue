@@ -5,24 +5,20 @@
             <router-link to="/login" tag="li" activeClass="active" class="red">乐村淘账户登录</router-link>
             <router-link to="/regist" tag="li" activeClass="active">免费注册</router-link>
         </ul>
-
-            <mt-field  placeholder="输入手机号用户名" maxlength="11" class="titleleft" v-model="test1" οnkeyup="value=value.replace(/[^0-9.]/g,'') " ref="input1" @blur="changeName(test1)"></mt-field>
+            <mt-field  placeholder="输入用户名" maxlength="11" class="titleleft" v-model="test1"  ref="input1" @blur="changeName(test1)"></mt-field>
             <mt-field  placeholder="请输入密码" type="password" class="titleleft" v-model="test2" ref="input2" @blur="changeName1(test2)"></mt-field>
-            <mt-field  placeholder="请输入验证码" type="password" class="titleleft" v-model="test3" ref="input3"></mt-field>
-            <mt-button @click="handleClick()" class="yanzheng" > {{codeText}} </mt-button>
             <mt-button type="danger" size="large" class="btn" @click="loginBtn()">登录</mt-button>
             <router-link to="/Retphone">  <mt-button type="default" size="large" class="btn">找回密码</mt-button></router-link>
         <backbtn></backbtn>
-
     </div>
 </template>
 
 <script>
 
 import Vue from 'vue'
-import { Field, Button } from 'mint-ui'
-
+import { Field, Button, Toast } from 'mint-ui'
 import backbtn from '@/components/backbtn'
+import Axios from 'axios'
 
 Vue.component(Button.name, Button)
 Vue.component(Field.name, Field)
@@ -33,44 +29,10 @@ export default {
   data () {
     return {
       test1: '',
-      test2: '',
-      test3: '',
-      codeText: '获取验证码'
+      test2: ''
     }
   },
   methods: {
-    // 获取验证码
-    handleClick () {
-      let reg = /^1[0345789][0-9]{9}$/
-      if (this.test1 === '' || this.test2 === '') {
-        // 验证
-        this.$message({
-          message: '手机号密码不能为空！',
-          type: 'warning'
-        })
-      } else if (!reg.test(this.test1)) {
-        this.$message.error('请输入正确的手机号')
-      } else {
-        this.timer()
-        console.log(this.test1)
-      }
-    },
-    timer () {
-      // 验证码倒计时
-      let num = 60
-      let that = this
-      that.codeText = num + '秒后重新发送'
-      let time = setInterval(function () {
-        if (num === 0) {
-          clearInterval(time)
-          time = null
-          that.codeText = '重发验证码'
-        } else {
-          num--
-          that.codeText = num + '秒后重新发送'
-        }
-      }, 1000)
-    },
     // 用户名
     changeName (userName) {
       let name = userName
@@ -93,21 +55,37 @@ export default {
     loginBtn () {
       this.test1 = this.$refs.input1.value
       this.test2 = this.$refs.input2.value
-      this.test3 = this.$refs.input3.value
-      if (this.test3 === '') {
-        this.$message.error('请输入验证码')
-      } else {
-        this.$router.push('/Center')
-        this.$message({
-          message: '恭喜你，登陆成功！',
-          type: 'success'
-        })
-        console.log(this.test1)
-        console.log(this.test2)
-        console.log(this.test3)
-      }
+      console.log(this.test1)
+      console.log(this.test2)
+      Axios.post('/cart/login', {
+        username: this.test1,
+        password: this.test2
+      }).then(res => {
+          console.log(res.data)
+        if (res.data.code === 1) {
+          localStorage.setItem('token', res.data.msg)
+          this.$router.push('/lecun')
+        } else if (res.data.code === 2) {
+          Toast({
+            message: '没有此用户名'
+          })
+        } else if (res.data.code === 0) {
+          Toast({
+            message: res.data.msg
+          })
+        }
+      })
+      // Axios.post('/cart/login')
+      // if (this.test3 === '') {
+      //   this.$message.error('请输入验证码')
+      // } else {
+      //   this.$router.push('/Center')
+      //   this.$message({
+      //     message: '恭喜你，登陆成功！',
+      //     type: 'success'
+      //   })
+      // }
     }
-
   }
 }
 

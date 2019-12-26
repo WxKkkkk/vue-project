@@ -18,7 +18,7 @@ const routes = [
     component: () => import('@/views/Category')
   },
   {
-    path: '/cart',
+    path: '/cartsss',
     component: () => import('@/views/Cart')
   },
   {

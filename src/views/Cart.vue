@@ -20,35 +20,25 @@
             <div class="circle" v-if="istrue" style="background: orange;">√</div>
           </div>
           <img src="https://img.lecuntao.com/data/upload/shop/store/goods/4831/2019/09/28/4831_06229963708736332_360.jpg" alt="商品图片">
-          <div class="outcon">
-            <div class="goodsitem">
-              <p>商品名</p>
-            </div>
-            <div class="bottom">
-              <div class="price">
-                <p>现价</p>
-              </div>
-              <div class="cart">
-                <span>-</span>
-                <span>1</span>
-                <span>+</span>
-              </div>
-            </div>
+          <div class="goodsitem">
+            <div class="goodstitle">商品名</div>
+            <div class="price">现价：</div>
+          </div>
+          <div class="cart">
+            <span>-</span>
+            <span>1</span>
+            <span>+</span>
           </div>
         </li>
       </ul>
     </div>
     <div class="footer">
-      <div class="input">
-        <input type="checkbox" @change="state()">
-        <div class="circle" v-if="istrue" style="background: orange;">√</div>
-      </div>
       <div class="sumprice">
         <div class="sum">
-          <span>合计：</span>
+          <span>合计：<em>￥0.00</em></span>
           <span>不含运费</span>
         </div>
-        <span>去结算()</span>
+        <span @click="ff">去结算(0)</span>
       </div>
     </div>
   </div>
@@ -70,6 +60,11 @@
     methods: {
       state () {
         this.istrue = !this.istrue
+      },
+      ff () {
+        Axios.get('/cart/insert').then(res => {
+          console.log(res)
+        })
       }
     }
   }
@@ -152,36 +147,88 @@
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          align-items: flex-start;
           padding: 0 0.625rem;
           &>img{
             width: 30%;
+            align-self: center;
           }
           .input{
             align-self: center;
           }
-          .outcon{
+          .goodsitem{
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            .bottom{
-              .cart{
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                span{
-                  display: block;
-                  width: 2.25rem;
-                  height: 2.25rem;
-                  font-size: 1rem;
-                  text-align: center;
-                  line-height: 2.25rem;
-                  background: rgba(220,220,220,0.8);
-                  border-left: 0.0625rem solid white;
-                }
-              }
+            .goodstitle{
+              margin-top: 0.625rem;
+            }
+            .price{
+              margin-bottom: 2.5rem;
             }
           }
+          .cart{
+            align-self: flex-end;
+            margin-bottom: 0.625rem;
+            display: flex;
+            flex-direction: row;
+            span{
+              display: block;
+              width: 1.875rem;
+              height: 1.875rem;
+              background: rgb(220,220,220);
+              text-align: center;
+              line-height: 1.875rem;
+              border-left: 0.0625rem solid white;
+            }
+          }
+        }
+      }
+    }
+    .footer{
+      position: fixed;
+      bottom: 3.125rem;
+      width: 100%;
+      height: 3.125rem;
+      display: flex;
+      flex-direction: row;
+      border: 0.0625rem solid gray;
+      border-left: none;
+      border-right: none;
+      .sumprice{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+        height: 3.125rem;
+        .sum{
+          width: 75%;
+          height: 3.125rem;
+          text-align: right;
+          align-self: center;
+          span{
+            display: block;
+            margin-right: 0.625rem;
+            &:nth-child(1){
+              margin-top: 0.3125rem;
+              em{
+                color: firebrick;
+              }
+            }
+            &:nth-child(2){
+              color: gray;
+            }
+          }
+        }
+        &>span{
+          position: absolute;
+          width: 25%;
+          height: 100%;
+          text-align: center;
+          line-height: 3.125rem;
+          background: #fb0a84;
+          color: white;
+          bottom: 0;
+          right: 0;
         }
       }
     }

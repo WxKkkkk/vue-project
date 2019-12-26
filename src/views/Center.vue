@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="center">
     <!-- Center -->
     <img class="img" src="https://m.lecuntao.com/resource/images/per/bg_gerenzhongxinbeijing.png?lv=eedef2e054" alt="">
     <img class="headimg" src="https://s0.lecuntao.com/mobile_2.3.0/resource/images/member_avatar_2x.png" alt="">
@@ -68,21 +68,23 @@
 
 // <router-link to="/path"><button>跳转</button></router-link>
 
-// export default {
-//   beforeRouteEnter (to, from, next) {
-//     // 在渲染该组件的对应路由被 confirm 前调用
-//     // 不！能！获取组件实例 `this`
-//     // 因为当守卫执行前，组件实例还没被创建
-//     if (localStorage.getItem('login')) {
-//       next()
-//     } else {
-//       next('/login')
-//     }
-//   }
-// }
+export default {
+  beforeRouteEnter (to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+    if (localStorage.getItem('token')) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
-
+.center{
+  overflow-x: hidden;
+}
 .gray{
   background:wheat;
   height: 10px;

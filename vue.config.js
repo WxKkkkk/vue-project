@@ -9,6 +9,13 @@ module.exports = {
         target: 'https://mobileway.lecuntao.com',
         // ws: true,
         changeOrigin: true
+      },
+      '/cart': {
+        target: 'http://10.2.157.49:3000',
+        changeOrigin: true
+        // pathRewrite: {
+        //    '^/cart': 'cart'
+        // }
       }
     }
   }
