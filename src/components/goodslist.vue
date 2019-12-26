@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     loadMore () {
-      console.log(222222222222)
+      // console.log(222222222222)
       this.number++
       this.loading = true
       // console.log(this.datalist.length, this.total, 1)

@@ -41,22 +41,22 @@ export default {
       commonindex: '',
       detailbody: ''
     }
-  },
+    },
   methods: {
     addCart (id, name, img, price) {
-      Toast({
-        message: '添加购物车',
-        iconClass: 'icon icon-success'
+      Axios.post('/cart/insert', {
+        goodsid: id,
+        goodsname: name,
+        goodsimg: img,
+        goodsprice: price
+      }).then(res => {
+        console.log(res.data)
+        if (res.data.code === 1) {
+          Toast({
+            message: '添加购物车成功'
+          })
+        }
       })
-      var cartArr = []
-      var cart = {
-        id,
-        name,
-        img,
-        price
-      }
-      cartArr.push(cart)
-      localStorage.setItem('cart', JSON.stringify(cartArr))
     }
   },
   mounted () {
@@ -129,6 +129,7 @@ export default {
   }
   .detailbody{
     width: 100%;
+    margin-bottom: 20px;
   }
   .detailbody /deep/ img{
     width: 100%;

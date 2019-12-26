@@ -142,7 +142,7 @@ export default {
   methods: {
     scrolltop () {
       // console.log(this.$refs.banner.$el.offsetHeight)
-      if (document.documentElement.scrollTop >= this.$refs.banner.$el.offsetHeight) {
+      if ((document.documentElement.scrollTop || document.body.scrollTop) >= this.$refs.banner.$el.offsetHeight) {
         this.istop = true
       } else {
         this.istop = false
@@ -254,7 +254,7 @@ image[lazy=loading] {
   width: 100%;
   background: white;
   margin-top: 10px;
-  padding-left: 5px;
+  // padding-left: 5px;
   line-height: 40px;
   display: flex;
   justify-content: space-around;
