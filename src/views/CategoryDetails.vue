@@ -23,8 +23,7 @@
         <img :src="name.goods_image" />
         <span class="goodsTitle" v-html="name.goods_name">{{ name.goods_name }}</span>
         <div class="sale">
-          <img src="../../public/images/money.jpg" />
-          <span class="price">{{ name.goods_price }}</span>
+          <span class="price">¥{{ name.goods_price }}</span>
           <span class="salenum">{{ name.goods_salenum }}人付款</span>
         </div>
       </li>
@@ -139,7 +138,6 @@ export default {
         this.iffirstrequest = 0
       } else {
         ++this.page
-        console.log('即将请求' + this.page)
         this.request = 1
         if (this.page > this.$store.state.CategoryDetailpages) {
           --this.page
@@ -151,7 +149,6 @@ export default {
           }
         }
         localStorage.setItem('gcId', this.gcId)
-        console.log('second')
       }
     },
 
@@ -242,7 +239,6 @@ export default {
   border-top-color: red;
 }
 .CategoryDetail ul {
-  overflow: hidden;
   background-color: rgb(236, 236, 236);
   width: 100%;
   height: 32.5rem;
@@ -278,14 +274,6 @@ export default {
   overflow: hidden;
   height: 2rem;
   line-height: 2rem;
-}
-.CategoryDetail .sale img {
-  height: 0.8rem;
-  width: 0.8rem;
-  float: left;
-  margin-left: 0.5rem;
-  margin-top: 10%;
-  transform: translateY(-50%);
 }
 .CategoryDetail .sale .price {
   float: left;
