@@ -32,6 +32,12 @@ export default {
       test2: ''
     }
   },
+  mounted () {
+    this.$store.state.isprovince = false
+  },
+  beforeDestroy () {
+    this.$store.state.isprovince = true
+  },
   methods: {
     // 用户名
     changeName (userName) {
@@ -57,7 +63,7 @@ export default {
       this.test2 = this.$refs.input2.value
       console.log(this.test1)
       console.log(this.test2)
-      Axios.post('/cart/login', {
+      Axios.post('/user/login', {
         username: this.test1,
         password: this.test2
       }).then(res => {
