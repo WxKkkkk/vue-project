@@ -49,7 +49,7 @@ export default {
         goodsname: name,
         goodsimg: img,
         goodsprice: price,
-        userid: localStorage.getItem('token')
+        userid: JSON.parse(localStorage.getItem('token')).id
       }).then(res => {
         console.log(res.data)
         if (res.data.code === 1) {

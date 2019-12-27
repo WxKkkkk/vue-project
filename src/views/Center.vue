@@ -4,19 +4,19 @@
       <div class="head">
     <img class="img" src="https://m.lecuntao.com/resource/images/per/bg_gerenzhongxinbeijing.png?lv=eedef2e054" alt="">
     <img class="headimg" src="https://s0.lecuntao.com/mobile_2.3.0/resource/images/member_avatar_2x.png" alt="" @click="usercenter">
-    <p>王新凯</p>
+    <p>{{name}}</p>
     </div>
     <!-- <router-link to="/Setup">  <i class="iconfont topshang" >&#xe63d;</i></router-link> -->
     <mt-cell  title="我的集单" is-link class="titleleft">
       <!-- <i class="iconfont  leftzuo">&#xe63d;</i> -->
     <!-- <span>icon 是图片</span> -->
     </mt-cell>
-    <ul style="border-bottom:none">
+    <!-- <ul style="border-bottom:none">
       <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待付款</span></router-link>
       <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待发货</span></router-link>
       <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>待收货</span></router-link>
       <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>退款退货</span></router-link>
-    </ul>
+    </ul> -->
     <div class="gray"></div>
     <mt-cell title="收货地址" is-link class="titleleft">
       <!-- <i class="iconfont  leftzuo">&#xe63d;</i> -->
@@ -50,6 +50,11 @@
 // <router-link to="/path"><button>跳转</button></router-link>
 
 export default {
+  data () {
+    return {
+      name: JSON.parse(localStorage.getItem('token')).name
+    }
+  },
   methods: {
     logout () {
       localStorage.removeItem('token')

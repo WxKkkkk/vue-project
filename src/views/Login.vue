@@ -70,7 +70,7 @@ export default {
           console.log(res.data)
         if (res.data.code === 1) {
           console.log(res.data.msg[0].id)
-          localStorage.setItem('token', res.data.msg[0].id)
+          localStorage.setItem('token', JSON.stringify({ id: res.data.msg[0].id, name: res.data.msg[0].name }))
           this.$router.push('/lecun')
         } else if (res.data.code === 2) {
           Toast({
