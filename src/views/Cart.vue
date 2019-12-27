@@ -156,13 +156,20 @@
           padding: 0 0.625rem;
           position: relative;
           border-bottom: 0.0625rem solid gray;
+          padding-bottom: 0.3125rem;
           margin-bottom: 0.3125rem;
           &>img{
             width: 25%;
             align-self: center;
+            margin-right: 0.625rem;
+            margin-left: 2rem;
           }
           .input{
-            align-self: center;
+            // align-self: center;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
           }
           .goodsitem{
             display: flex;
