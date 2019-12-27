@@ -1,9 +1,12 @@
 <template>
   <div class="center">
       <!-- Center -->
+      <div class="head">
     <img class="img" src="https://m.lecuntao.com/resource/images/per/bg_gerenzhongxinbeijing.png?lv=eedef2e054" alt="">
     <img class="headimg" src="https://s0.lecuntao.com/mobile_2.3.0/resource/images/member_avatar_2x.png" alt="">
-    <router-link to="/Setup">  <i class="iconfont topshang" >&#xe63d;</i></router-link>
+    <p>王新凯</p>
+    </div>
+    <!-- <router-link to="/Setup">  <i class="iconfont topshang" >&#xe63d;</i></router-link> -->
     <mt-cell  title="我的集单" is-link class="titleleft">
       <i class="iconfont  leftzuo">&#xe63d;</i>
     <!-- <span>icon 是图片</span> -->
@@ -58,6 +61,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.head{
+  position: relative;
+  p{
+    position: absolute;
+    top:160px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+  }
+}
 .center{
   overflow-x: hidden;
 }
@@ -74,7 +87,7 @@ export default {
 }
   .leftzuo{
     position: absolute;
-    left: 15px;
+    left: 10px;
   }
   .img{
     // height: 44px;
