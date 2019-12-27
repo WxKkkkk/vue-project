@@ -11,11 +11,12 @@ module.exports = {
         changeOrigin: true
       },
       '/cart': {
-        target: 'http://10.2.157.49:3000',
+        target: 'http://10.2.157.20:3000',
         changeOrigin: true
-        // pathRewrite: {
-        //    '^/cart': 'cart'
-        // }
+      },
+      '/user': {
+        target: 'http://10.2.157.20:3000',
+        changeOrigin: true
       }
     }
   }
