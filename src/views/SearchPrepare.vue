@@ -40,7 +40,7 @@
         <span @click="$store.commit('clearAll')">清空</span>
         <img @click="$store.commit('clearAll')" src="../../public/images/clearall.jpg" />
       </div>
-      <li v-for="name in this.$store.state.HistorySearchList" :key="name" @click="searchHotOrHistory(name)">{{ name }}</li>
+      <li v-for="(name,index) in this.$store.state.HistorySearchList" :key="index" @click="searchHotOrHistory(name)">{{ name }}</li>
     </ul>
   </div>
 </template>

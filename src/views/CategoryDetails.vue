@@ -21,7 +21,7 @@
     <ul v-if="$store.state.CategoryDetailList.length!==0" v-infinite-scroll="categoryDetailLoadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
       <li class="CategoryDetailList" v-for="name in $store.state.CategoryDetailList" :key="name.goods_id" @click="toDetails($event, name)">
         <img :src="name.goods_image" />
-        <span class="goodsTitle">{{ name.goods_name }}</span>
+        <span class="goodsTitle" v-html="name.goods_name">{{ name.goods_name }}</span>
         <div class="sale">
           <img src="../../public/images/money.jpg" />
           <span class="price">{{ name.goods_price }}</span>
@@ -52,12 +52,10 @@ export default {
       this.gcId = localStorage.getItem('gcId') ? localStorage.getItem('gcId') : 1096
       this.$store.dispatch('getCategoryDetailList', [this.provinc, this.city, this.page, this.sorted, this.sequence, this.gcId, this.request])
     }
-
-    this.page = 0
   },
   data () {
     return {
-      title: '’',
+      title: '',
       page: 1,
       sorted: 4,
       sequence: 0,
@@ -69,7 +67,8 @@ export default {
       request: 0,
       keyword: '',
       goodsfrom: 0,
-      renqi: true
+      renqi: true,
+      iffirstrequest: 1
     }
   },
   methods: {
@@ -136,9 +135,14 @@ export default {
     },
 
     categoryDetailLoadMore () {
+      if (this.iffirstrequest === 1) {
+        this.iffirstrequest = 0
+      } else {
         ++this.page
+        console.log('即将请求' + this.page)
         this.request = 1
         if (this.page > this.$store.state.CategoryDetailpages) {
+          --this.page
         } else {
           if (localStorage.getItem('ifSearch') === '1') {
             this.$store.dispatch('getCategoryDetailListFromSearch', [this.provinc, this.city, this.keyword, this.page, this.sorted, this.sequence, this.goodsfrom, this.request])
@@ -147,6 +151,8 @@ export default {
           }
         }
         localStorage.setItem('gcId', this.gcId)
+        console.log('second')
+      }
     },
 
     toDetails (e, name) {
@@ -239,6 +245,7 @@ export default {
   overflow: hidden;
   background-color: rgb(236, 236, 236);
   width: 100%;
+  height: 32.5rem;
   margin-top: 6rem;
   margin-bottom: 0;
 }
