@@ -39,7 +39,7 @@
               <dt><img :src="data.goods_image" alt="" v-lazy="data.goods_image"></dt>
               <dd>
                 <p class="lejiname">{{data.goods_name}}</p>
-                <p class="lejiprice">{{data.goods_price}}元</p>
+                <p class="lejiprice">￥{{data.goods_price}}</p>
               </dd>
             </dl>
           </div>
@@ -62,7 +62,7 @@
               <dt><img :src="data.goods_image" alt="" v-lazy="data.goods_image"></dt>
               <dd>
                 <p class="lejiname">{{data.goods_name}}</p>
-                <p class="lejiprice">{{data.goods_price}}元</p>
+                <p class="lejiprice">￥{{data.goods_price}}</p>
               </dd>
             </dl>
           </div>
@@ -90,7 +90,7 @@
           <li v-for="item in data.goods_list" :key="item.goods_id" @click="godetail(item.goods_id,item.goods_commonid)">
             <img :src="item.goods_image" alt="" v-lazy="item.goods_image"/>
             <p class="goodsname">{{ item.goods_name }}</p>
-            <p class="goodsprice">{{ item.goods_price }}元</p>
+            <p class="goodsprice">￥{{ item.goods_price }}</p>
             <p class="goodsnum">已售{{ item.goods_salenum }}件</p>
           </li>
         </ul>
@@ -107,6 +107,7 @@ import citybtn from '@/components/citybtn'
 import swiper from '@/components/swiper'
 import goodslist from '@/components/goodslist'
 import gotop from '@/components/GoTop'
+import { Indicator } from 'mint-ui'
 export default {
   data () {
     return {
@@ -121,6 +122,10 @@ export default {
     }
   },
   mounted () {
+    Indicator.open({
+      text: '加载中...',
+      spinnerType: 'fading-circle'
+    })
     Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1576846125808&act=index&op=index&key=', `province_id=${localStorage.getItem('proviceId')}&city_id=${localStorage.getItem('cityId')}&qiang_zhi_geng_xin=`).then(res => {
       // console.log(res.data.datas.adv)
       this.bannarlist = res.data.datas.adv
@@ -130,6 +135,7 @@ export default {
       this.category = res.data.datas.category
       this.categoods = res.data.datas.category_goods
       // console.log(this.categoods, 111)
+      Indicator.close()
     })
     window.onscroll = this.scrolltop
   },
@@ -205,7 +211,9 @@ export default {
 }
 .categood {
   li {
-    width: 50%;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 48%;
     float: left;
     margin-bottom: 5px;
     background: white;
@@ -213,12 +221,14 @@ export default {
       width: 100%;
     }
     .goodsname {
+      margin-left: 5px;
       // width: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .goodsprice {
+      margin-left: 5px;
       color: rgb(242, 48, 48);
       font-size: 18px;
       float: left;

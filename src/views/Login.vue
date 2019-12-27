@@ -69,7 +69,8 @@ export default {
       }).then(res => {
           console.log(res.data)
         if (res.data.code === 1) {
-          localStorage.setItem('token', res.data.msg)
+          console.log(res.data.msg[0].id)
+          localStorage.setItem('token', res.data.msg[0].id)
           this.$router.push('/lecun')
         } else if (res.data.code === 2) {
           Toast({
@@ -112,8 +113,8 @@ export default {
         }
     }
    h5{
-     height: 68px;
-     line-height: 68px;
+     height: 55px;
+     line-height: 55px;
      font-size: 20px;
      text-align: center;
    }

@@ -82,7 +82,9 @@ export default {
     font-size: 12px;
   }
   li {
-    width: 50%;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 48%;
     float: left;
     margin-bottom: 10px;
     background: white;

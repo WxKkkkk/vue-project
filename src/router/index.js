@@ -62,6 +62,10 @@ const routes = [
     path: '/SearchPrepare',
     name: 'SearchPrepare',
     component: () => import('@/views/SearchPrepare')
+  },
+  {
+    path: '/usercenter',
+    component: () => import('@/views/Usercenter')
   }
 ]
 
