@@ -13,6 +13,8 @@
       ref="input1"
       @blur="changeName(test1)"
     ></mt-field>
+    <mt-field  placeholder="注册手机号" type="number"  maxlength="11" ref="inputphone">
+    </mt-field>
     <mt-field
       placeholder="设置登录密码"
       type="password"
@@ -43,6 +45,12 @@ export default {
       test2: ''
     }
   },
+  mounted () {
+    this.$store.state.isprovince = false
+  },
+  beforeDestroy () {
+    this.$store.state.isprovince = true
+  },
   methods: {
     // 用户名
     changeName (userName) {
@@ -66,9 +74,11 @@ export default {
     zhuceBtn () {
       this.test1 = this.$refs.input1.value
       this.test2 = this.$refs.input2.value
+      this.test3 = this.$refs.inputphone.value
       Axios.post('/cart/regist', {
         username: this.test1,
-        password: this.test2
+        password: this.test2,
+        telephone: this.test3
       }).then(res => {
         console.log(res.data)
         if (res.data.code === 1) {

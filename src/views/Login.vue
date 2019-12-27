@@ -32,6 +32,12 @@ export default {
       test2: ''
     }
   },
+  mounted () {
+    this.$store.state.isprovince = false
+  },
+  beforeDestroy () {
+    this.$store.state.isprovince = true
+  },
   methods: {
     // 用户名
     changeName (userName) {
