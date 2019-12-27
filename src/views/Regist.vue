@@ -75,7 +75,7 @@ export default {
       this.test1 = this.$refs.input1.value
       this.test2 = this.$refs.input2.value
       this.test3 = this.$refs.inputphone.value
-      Axios.post('/cart/regist', {
+      Axios.post('/user/regist', {
         username: this.test1,
         password: this.test2,
         telephone: this.test3

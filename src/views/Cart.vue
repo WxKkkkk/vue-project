@@ -14,15 +14,15 @@
         <h3>全选</h3>
       </div>
       <ul>
-        <li>
+        <li v-for="data in dataList" :key="data.cartId">
           <div class="input">
             <input type="checkbox" @change="state()">
             <div class="circle" v-if="istrue" style="background: orange;">√</div>
           </div>
-          <img src="https://img.lecuntao.com/data/upload/shop/store/goods/4831/2019/09/28/4831_06229963708736332_360.jpg" alt="商品图片">
+          <img :src="data.goodsimg" alt="商品图片">
           <div class="goodsitem">
-            <div class="goodstitle">商品名</div>
-            <div class="price">现价：</div>
+            <div class="goodstitle">{{data.goodsname}}</div>
+            <div class="price">现价：{{data.goodsprice}}</div>
           </div>
           <div class="cart">
             <span>-</span>
@@ -38,7 +38,7 @@
           <span>合计：<em>￥0.00</em></span>
           <span>不含运费</span>
         </div>
-        <span @click="ff">去结算(0)</span>
+        <span>去结算(0)</span>
       </div>
     </div>
   </div>
@@ -47,24 +47,30 @@
 <script>
   import Axios from 'axios'
   export default {
+    beforeRouteEnter (to, from, next) {
+      // 在渲染该组件的对应路由被 confirm 前调用
+      // 不！能！获取组件实例 `this`
+      // 因为当守卫执行前，组件实例还没被创建
+      if (localStorage.getItem('token')) {
+        next()
+      } else {
+        next('/login')
+      }
+    },
     data () {
       return {
-        istrue: false
+        istrue: false,
+        dataList: []
       }
     },
     mounted () {
-      Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577147480558', 'key=4994b17243c28325b62cf447eb2172fd&act=mobile_cart&op=index').then(res => {
-        console.log(res.data)
+      Axios.get(`/cart/select?userId=${localStorage.getItem('token')}`).then(res => {
+        this.dataList = res.data.data
       })
     },
     methods: {
       state () {
         this.istrue = !this.istrue
-      },
-      ff () {
-        Axios.get('/cart/insert').then(res => {
-          console.log(res)
-        })
       }
     }
   }
@@ -148,8 +154,11 @@
           flex-direction: row;
           justify-content: space-between;
           padding: 0 0.625rem;
+          position: relative;
+          border-bottom: 0.0625rem solid gray;
+          margin-bottom: 0.3125rem;
           &>img{
-            width: 30%;
+            width: 25%;
             align-self: center;
           }
           .input{
@@ -160,6 +169,10 @@
             flex-direction: column;
             justify-content: space-between;
             .goodstitle{
+              width: 40%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
               margin-top: 0.625rem;
             }
             .price{
@@ -167,7 +180,9 @@
             }
           }
           .cart{
-            align-self: flex-end;
+            position: absolute;
+            right: 1rem;
+            bottom: 1rem;
             margin-bottom: 0.625rem;
             display: flex;
             flex-direction: row;
