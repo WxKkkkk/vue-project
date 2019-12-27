@@ -1,7 +1,7 @@
 <template>
   <div class="Category">
     <div class="CategorySearch">
-      <input type="text" placeholder="输入商品名称" @click="gotosearch()" />
+      <input type="text" placeholder="输入商品名称" @click="toSearchPrepare()" />
       <span @click="returnlast()">取消</span>
     </div>
     <ul>
@@ -46,7 +46,7 @@ export default {
       localStorage.setItem('ifSearch', '0')
       this.$router.push({ name: 'CategoryDetails', params: { gcName: n.gc_name } })
     },
-    gotosearch () {
+    toSearchPrepare () {
       this.$router.push({ name: 'SearchPrepare' })
     },
     returnlast () {

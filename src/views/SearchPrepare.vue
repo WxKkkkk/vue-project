@@ -31,7 +31,7 @@
         <span class="hottext">Hot</span>
         <span class="hottextChinese">热门搜索</span>
       </div>
-      <li v-for="name in this.$store.state.HotSearchList" :key="name" @click="searchHot(name)">{{ name }}</li>
+      <li v-for="name in this.$store.state.HotSearchList" :key="name" @click="searchHotOrHistory(name)">{{ name }}</li>
     </ul>
 
     <ul class="history">
@@ -40,7 +40,7 @@
         <span @click="$store.commit('clearAll')">清空</span>
         <img @click="$store.commit('clearAll')" src="../../public/images/clearall.jpg" />
       </div>
-      <li v-for="(name, index) in this.$store.state.HistorySearchList" :key="index" @click="searchHistory(name)">{{ name }}</li>
+      <li v-for="name in this.$store.state.HistorySearchList" :key="name" @click="searchHotOrHistory(name)">{{ name }}</li>
     </ul>
   </div>
 </template>
@@ -93,15 +93,12 @@ export default {
         this.$router.push({ name: 'CategoryDetails' })
       }
     },
-    searchHot (name) {
+    searchHotOrHistory (name) {
       this.$store.commit('addHistory', name)
       this.searchText = name
       localStorage.setItem('ifSearch', '1')
       localStorage.setItem('keyword', this.searchText)
       this.$router.push({ name: 'CategoryDetails' })
-    },
-    searchHistory (name) {
-      ;
     }
   }
 }
