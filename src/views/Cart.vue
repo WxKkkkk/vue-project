@@ -7,27 +7,21 @@
     </div>
     <div class="content">
       <div class="trade">
-        <div class="input">
-          <input type="checkbox" @change="state()">
-          <div class="circle" v-if="istrue" style="background: orange;">√</div>
-        </div>
+        <input type="checkbox" @change="state" v-model="istrue">
         <h3>全选</h3>
       </div>
       <ul>
         <li v-for="data in dataList" :key="data.cartId">
-          <div class="input">
-            <input type="checkbox" @change="state()">
-            <div class="circle" v-if="istrue" style="background: orange;">√</div>
-          </div>
+          <input type="checkbox" v-model="selectList" :value="data" :checked="isitem" @change="itemstate">
           <img :src="data.goodsimg" alt="商品图片">
           <div class="goodsitem">
             <div class="goodstitle">{{data.goodsname}}</div>
             <div class="price">现价：{{data.goodsprice}}</div>
           </div>
           <div class="cart">
-            <span>-</span>
-            <span>1</span>
-            <span>+</span>
+            <span @click="sub(data.goodsId,data.goodsnumber)">-</span>
+            <span>{{data.goodsnumber}}</span>
+            <span @click="add(data.goodsId,data.goodsnumber)">+</span>
           </div>
         </li>
       </ul>
@@ -35,10 +29,10 @@
     <div class="footer">
       <div class="sumprice">
         <div class="sum">
-          <span>合计：<em>￥0.00</em></span>
+          <span>合计：<em>￥{{sum}}</em></span>
           <span>不含运费</span>
         </div>
-        <span>去结算(0)</span>
+        <span>去结算({{selectList.length}})</span>
       </div>
     </div>
   </div>
@@ -60,7 +54,9 @@
     data () {
       return {
         istrue: false,
-        dataList: []
+        isitem: false,
+        dataList: [],
+        selectList: []
       }
     },
     mounted () {
@@ -68,9 +64,63 @@
         this.dataList = res.data.data
       })
     },
+    computed: {
+      sum () {
+        let sum = 0
+        for (let i = 0; i < this.selectList.length; i++) {
+          let item = this.selectList[i]
+          sum += item.goodsprice * item.goodsnumber
+        }
+        return sum
+      }
+    },
     methods: {
       state () {
-        this.istrue = !this.istrue
+        if (this.istrue) {
+          this.selectList = this.dataList
+        } else {
+          this.selectList = []
+        }
+        console.log(this.selectList)
+      },
+      itemstate () {
+        if (this.selectList.length === this.dataList.length) {
+          this.istrue = true
+        } else {
+          this.istrue = false
+        }
+      },
+      sub (id, count, name) {
+        Axios.post('/cart/changenumber', {
+          goodsid: id,
+          operation: 'sub',
+          number: count,
+          userid: localStorage.getItem('token')
+        }).then(res => {
+          var coid = res.data.data[0].goodsId
+          var codata = res.data.data[0].goodsnumber
+          for (var i = 0; i < this.dataList.length; i++) {
+            if (this.dataList[i].goodsId === coid) {
+              this.dataList[i].goodsnumber = codata
+            }
+          }
+        })
+      },
+      add (id, count, name) {
+        Axios.post('/cart/changenumber', {
+          goodsid: id,
+          operation: 'add',
+          number: count,
+          userid: localStorage.getItem('token')
+        }).then(res => {
+          var coid = res.data.data[0].goodsId
+          var codata = res.data.data[0].goodsnumber
+          for (var i = 0; i < this.dataList.length; i++) {
+            if (this.dataList[i].goodsId === coid) {
+              this.dataList[i].goodsnumber = codata
+            }
+          }
+        })
       }
     }
   }
@@ -80,40 +130,6 @@
   .box{
     width: 100%;
     overflow: hidden;
-    .input{
-      box-sizing: border-box;
-      float: left;
-      width: 1.25rem;
-      height: 1.25rem;
-      border: 0.0625rem solid gray;
-      border-radius: 50%;
-      position: relative;
-      margin-right: 0.625rem;
-      input{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        z-index: 5;
-      }
-      .circle{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-        border-radius: 50%;
-        text-align: center;
-      }
-    }
     .title{
       height: 3.125rem;
       width: 100%;
@@ -141,11 +157,14 @@
     .content{
       width: 100%;
       .trade{
-        box-sizing: border-box;
-        width: 100%;
+        display: flex;
+        flex-direction: row;
         height: 2.5rem;
-        padding-top: 0.625rem;
-        margin-left: 0.625rem;
+        align-items: center;
+        border-bottom: 0.0625rem solid gray;
+        input{
+          margin: 0 0.625rem;
+        }
       }
       ul{
         width: 100%;
@@ -161,26 +180,19 @@
           &>img{
             width: 25%;
             align-self: center;
-            margin-right: 0.625rem;
-            margin-left: 2rem;
+            margin-right: 1rem;
+            margin-left: 0.625rem;
           }
-          .input{
-            // align-self: center;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            margin: auto 0;
+          input{
+            align-self: center;
           }
           .goodsitem{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             .goodstitle{
               width: 40%;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              margin-top: 0.625rem;
+              margin: 1rem 0;
             }
             .price{
               margin-bottom: 2.5rem;
