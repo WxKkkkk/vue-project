@@ -81,7 +81,7 @@
         } else {
           this.selectList = []
         }
-        console.log(this.selectList)
+        // console.log(this.selectList)
       },
       itemstate () {
         if (this.selectList.length === this.dataList.length) {

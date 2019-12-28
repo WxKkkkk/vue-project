@@ -46,7 +46,7 @@ export default {
         // 用户名为空时
         this.$refs.input1.focus()
       } else {
-        console.log(name)
+        // console.log(name)
       }
     },
     // 密码
@@ -55,21 +55,21 @@ export default {
         // 密码为空
         this.$refs.input2.focus()
       } else {
-        console.log(pass)
+        // console.log(pass)
       }
     },
     loginBtn () {
       this.test1 = this.$refs.input1.value
       this.test2 = this.$refs.input2.value
-      console.log(this.test1)
-      console.log(this.test2)
+      // console.log(this.test1)
+      // console.log(this.test2)
       Axios.post('/user/login', {
         username: this.test1,
         password: this.test2
       }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
         if (res.data.code === 1) {
-          console.log(res.data.msg[0].id)
+          // console.log(res.data.msg[0].id)
           localStorage.setItem('token', JSON.stringify({ id: res.data.msg[0].id, name: res.data.msg[0].name }))
           this.$router.push('/lecun')
         } else if (res.data.code === 2) {

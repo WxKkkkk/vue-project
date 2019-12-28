@@ -80,7 +80,7 @@ export default {
         password: this.test2,
         telephone: this.test3
       }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.code === 1) {
           Toast({
             message: res.data.msg
