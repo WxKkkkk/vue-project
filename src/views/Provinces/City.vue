@@ -21,7 +21,7 @@ export default {
   mounted () {
     this.$store.state.isprovince = false
     Axios.post('/lct?api_version=2.3.0&platType=2&client=wap&isEncry=0&time=1577072434837&act=Address&op=get_region', `region=city_name&parent_id=${this.$store.state.provinceid}`).then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       this.dataList = res.data.datas
     })
   },
