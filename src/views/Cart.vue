@@ -32,7 +32,7 @@
           <span>合计：<em>￥{{sum}}</em></span>
           <span>不含运费</span>
         </div>
-        <span>去结算({{selectList.length}})</span>
+        <span @click="goorder()">去结算({{selectList.length}})</span>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@
       }
     },
     mounted () {
-      Axios.get(`/cart/select?userId=${localStorage.getItem('token')}`).then(res => {
+      Axios.get(`/cart/select?userId=${JSON.parse(localStorage.getItem('token')).id}`).then(res => {
         this.dataList = res.data.data
       })
     },
@@ -71,7 +71,7 @@
           let item = this.selectList[i]
           sum += item.goodsprice * item.goodsnumber
         }
-        return sum
+        return parseFloat(parseFloat(sum).toFixed(2))
       }
     },
     methods: {
@@ -95,7 +95,7 @@
           goodsid: id,
           operation: 'sub',
           number: count,
-          userid: localStorage.getItem('token')
+          userid: JSON.parse(localStorage.getItem('token')).id
         }).then(res => {
           var coid = res.data.data[0].goodsId
           var codata = res.data.data[0].goodsnumber
@@ -111,7 +111,7 @@
           goodsid: id,
           operation: 'add',
           number: count,
-          userid: localStorage.getItem('token')
+          userid: JSON.parse(localStorage.getItem('token')).id
         }).then(res => {
           var coid = res.data.data[0].goodsId
           var codata = res.data.data[0].goodsnumber
@@ -121,6 +121,9 @@
             }
           }
         })
+      },
+      goorder () {
+        this.$router.push('/order')
       }
     }
   }
@@ -228,6 +231,7 @@
       border: 0.0625rem solid gray;
       border-left: none;
       border-right: none;
+      background: white;
       .sumprice{
         display: flex;
         flex-direction: row;
