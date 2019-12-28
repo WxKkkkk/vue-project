@@ -13,6 +13,18 @@
             <p>￥699.00</p>
             <p>x 1</p>
         </li>
+        <li>
+            <img src="https://img.lecuntao.com/data/upload/shop/store/goods/723/2019/06/20/723_06143897389323496_360.jpg" alt="">
+            <p>小天鹅</p>
+            <p>￥699.00</p>
+            <p>x 1</p>
+        </li>
+        <li>
+            <img src="https://img.lecuntao.com/data/upload/shop/store/goods/723/2019/06/20/723_06143897389323496_360.jpg" alt="">
+            <p>小天鹅</p>
+            <p>￥699.00</p>
+            <p>x 1</p>
+        </li>
     </ul>
     <div class="foot">
         <p>提交订单</p>
@@ -64,18 +76,20 @@ export default {
   }
 }
 .goodslist{
-    // height: 2rem;
-    height: 5rem;
-    width: 96%;
-    margin: 0.5rem 2%;
-    background: #f0f0f0;
-    img{
-        width: 4.8rem;
-        height: 4.8rem;
-        float: left;
-        margin-top: 0.1rem;
-        margin-left: 0.1rem;
+    li{
+        height: 5rem;
+        width: 96%;
+        margin: 0.5rem 2%;
+        background: #f0f0f0;
+            img{
+            width: 4.8rem;
+            height: 4.8rem;
+            float: left;
+            margin-top: 0.1rem;
+            margin-left: 0.1rem;
+        }
     }
+
 }
 .foot{
     width: 100%;
