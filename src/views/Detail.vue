@@ -44,20 +44,24 @@ export default {
     },
   methods: {
     addCart (id, name, img, price) {
-      Axios.post('/cart/insert', {
-        goodsid: id,
-        goodsname: name,
-        goodsimg: img,
-        goodsprice: price,
-        userid: JSON.parse(localStorage.getItem('token')).id
-      }).then(res => {
-        console.log(res.data)
-        if (res.data.code === 1) {
-          Toast({
-            message: '添加购物车成功'
-          })
-        }
-      })
+      if (localStorage.getItem('token')) {
+        Axios.post('/cart/insert', {
+          goodsid: id,
+          goodsname: name,
+          goodsimg: img,
+          goodsprice: price,
+          userid: JSON.parse(localStorage.getItem('token')).id
+        }).then(res => {
+          console.log(res.data)
+          if (res.data.code === 1) {
+            Toast({
+              message: '添加购物车成功'
+            })
+          }
+        })
+      } else {
+        this.$router.push('/login')
+      }
     }
   },
   mounted () {

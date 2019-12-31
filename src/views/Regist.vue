@@ -9,18 +9,25 @@
       placeholder="注册用户名"
       @click="handleClick()"
       maxlength="11"
-      v-model="test1"
-      ref="input1"
-      @blur="changeName(test1)"
+      v-model="username"
+      ref="username"
+      @blur="changeName(username)"
     ></mt-field>
-    <mt-field  placeholder="注册手机号" type="number"  maxlength="11" ref="inputphone">
+    <mt-field  placeholder="注册手机号" type="number"  maxlength="11" ref="inputphone" v-model="phonenumber" @blur="setPhonenumber(phonenumber)">
     </mt-field>
     <mt-field
       placeholder="设置登录密码"
       type="password"
-      v-model="test2"
-      ref="input2"
-      @blur="changeName1(test2)"
+      v-model="password"
+      ref="pass"
+      @blur="setPassword(password)"
+    ></mt-field>
+    <mt-field
+      placeholder="确认登录密码"
+      type="password"
+      v-model="affirmpass"
+      ref="affirm"
+      @blur="affirmPassword(affirmpass)"
     ></mt-field>
     <div class="zhanwei"></div>
     <mt-button type="danger" size="large" class="btn" @click="zhuceBtn()">注册</mt-button>
@@ -41,8 +48,10 @@ export default {
   },
   data () {
     return {
-      test1: '',
-      test2: ''
+      username: '',
+      password: '',
+      affirmpass: '',
+      phonenumber: ''
     }
   },
   mounted () {
@@ -57,41 +66,80 @@ export default {
       let name = userName
       if (name === '' || name === undefined || name === null) {
         // 用户名为空时
-        this.$refs.input1.focus()
+        this.$refs.username.focus()
       } else {
         console.log(name)
       }
     },
     // 密码
-    changeName1 (pass) {
-      if (pass === '' || pass === undefined || pass === null) {
+    setPassword (password) {
+      if (password === '' || password === undefined || password === null) {
         // 密码为空
-        this.$refs.input2.focus()
+        this.$refs.pass.focus()
       } else {
-        console.log(pass)
+        console.log(password)
       }
     },
+    // 确认密码
+    affirmPassword (affirmpass) {
+      if (affirmpass === '' || affirmpass === undefined || affirmpass === null) {
+        // 密码为空
+        this.$refs.affirm.focus()
+      } else {
+        console.log(affirmpass)
+      }
+    },
+    // 手机号
+    setPhonenumber (phone) {
+      if (phone === '' || phone === undefined || phone === null) {
+        // 密码为空
+        this.$refs.inputphone.focus()
+      } else {
+        console.log(phone)
+      }
+    },
+    // 注册
     zhuceBtn () {
-      this.test1 = this.$refs.input1.value
-      this.test2 = this.$refs.input2.value
-      this.test3 = this.$refs.inputphone.value
-      Axios.post('/user/regist', {
-        username: this.test1,
-        password: this.test2,
-        telephone: this.test3
-      }).then(res => {
-        // console.log(res.data)
-        if (res.data.code === 1) {
-          Toast({
-            message: res.data.msg
-          })
-          this.$router.push('/login')
-        } else if (res.data.code === 0) {
-          Toast({
-            message: res.data.msg
-          })
-        }
-      })
+      if (this.$refs.username.value === '') {
+        Toast({
+          message: '用户名不能为空！'
+        })
+      } else if (this.$refs.inputphone.value === '') {
+        Toast({
+          message: '手机号不能为空！'
+        })
+      } else if (this.$refs.pass.value === '') {
+        Toast({
+          message: '密码不能为空！'
+        })
+      } else if (this.$refs.pass.value === this.$refs.affirm.value) {
+        console.log(this.$refs.pass.value)
+        console.log(this.$refs.affirm.value)
+        this.username = this.$refs.username.value
+        this.phonenumber = this.$refs.inputphone.value
+        this.affirmpass = this.$refs.affirm.value
+        Axios.post('/user/regist', {
+          username: this.username,
+          password: this.affirmpass,
+          telephone: this.phonenumber
+        }).then(res => {
+          // console.log(res.data)
+          if (res.data.code === 1) {
+            Toast({
+              message: res.data.msg
+            })
+            this.$router.push('/login')
+          } else if (res.data.code === 0) {
+            Toast({
+              message: res.data.msg
+            })
+          }
+        })
+      } else {
+        Toast({
+          message: '您输入的两次密码不符！'
+        })
+      }
     }
   }
 }

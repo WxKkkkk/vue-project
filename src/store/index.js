@@ -14,7 +14,8 @@ export default new Vuex.Store({
     CategorySmallList: [],
     CategoryDetailList: [],
     HotSearchList: [],
-    HistorySearchList: []
+    HistorySearchList: [],
+    orderList: []
   },
 
   mutations: {

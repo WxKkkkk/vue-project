@@ -32,7 +32,7 @@
           <span>合计：<em>￥{{sum}}</em></span>
           <span>不含运费</span>
         </div>
-        <span @click="goorder()" v-show="isdel">去结算({{selectList.length}})</span>
+        <span @click="selectList.length>0 ? goorder() : null" v-show="isdel" :class="selectList.length>0 ? 'active' : 'nomorl'">去结算({{selectList.length}})</span>
         <span @click="del()" v-show="!isdel">删除</span>
       </div>
     </div>
@@ -126,6 +126,7 @@
       },
       goorder () {
         this.$router.push('/order')
+        this.$store.state.orderList = this.selectList
       },
       back () {
         history.back()
@@ -143,6 +144,7 @@
               for (var j in this.dataList) {
                 if (this.selectList[i].cartId === this.dataList[j].cartId) {
                   this.dataList.splice(j, 1)
+                  this.selectList = []
                 }
               }
             }
@@ -157,6 +159,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .active{
+    background: #fb0a84;
+  }
+  .nomorl{
+    background: gray;
+  }
   .box{
     width: 100%;
     overflow: auto;
@@ -293,7 +301,7 @@
           height: 100%;
           text-align: center;
           line-height: 3.125rem;
-          background: #fb0a84;
+          // background: #fb0a84;
           color: white;
           bottom: 0;
           right: 0;

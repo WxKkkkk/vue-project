@@ -26,6 +26,10 @@ const routes = [
     component: () => import('@/views/Center')
   },
   {
+    path: '/address',
+    component: () => import('@/views/Address')
+  },
+  {
     path: '/detail/:goodsid',
     component: () => import('@/views/Detail')
   },
@@ -46,6 +50,10 @@ const routes = [
     component: () => import('@/views/Retphone')
   },
   {
+    path: '/usercenter',
+    component: () => import('@/views/Usercenter')
+  },
+  {
     path: '/province',
     component: () => import('@/views/Province')
   },
@@ -62,10 +70,6 @@ const routes = [
     path: '/SearchPrepare',
     name: 'SearchPrepare',
     component: () => import('@/views/SearchPrepare')
-  },
-  {
-    path: '/usercenter',
-    component: () => import('@/views/Usercenter')
   },
   {
     path: '/order',

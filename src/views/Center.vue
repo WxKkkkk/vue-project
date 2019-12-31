@@ -18,7 +18,7 @@
       <router-link to="#" tag="li" activeClass="foot"><i class="iconfont">&#xe63d;</i><span>退款退货</span></router-link>
     </ul> -->
     <div class="gray"></div>
-    <mt-cell title="收货地址" is-link class="titleleft">
+    <mt-cell title="收货地址" is-link class="titleleft" @click.native="goaddress()">
       <!-- <i class="iconfont  leftzuo">&#xe63d;</i> -->
       <span>管理地址信息</span>
     </mt-cell>
@@ -62,6 +62,9 @@ export default {
     },
     usercenter () {
       this.$router.push('/usercenter')
+    },
+    goaddress () {
+      this.$router.push('/address')
     }
   },
   beforeRouteEnter (to, from, next) {

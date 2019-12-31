@@ -17,6 +17,10 @@ module.exports = {
       '/user': {
         target: 'http://10.2.157.20:3000',
         changeOrigin: true
+      },
+      '/order': {
+        target: 'http://10.2.157.20:3000',
+        changeOrigin: true
       }
     }
   }
